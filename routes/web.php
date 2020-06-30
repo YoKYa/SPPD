@@ -1,17 +1,20 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\LoginController;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Foundation\Auth\LoginController;
 
+//Login SPPD
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes(['register' => false]);
+//Autentikasi Login di false supaya tidak keluar register
+Auth::routes(['register'=>false]);
 
-Route::get('/Dashboard', 'HomeController@index')->name('home');
 
-Route::get('/Test', function () {
-    return view('test');
+//Grup yang digunakan Autentikasi
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/Dashboard', 'HomeController@index')->name('home');
 });
