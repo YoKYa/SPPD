@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Jun 2020 pada 04.08
+-- Waktu pembuatan: 30 Jun 2020 pada 10.00
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.1
 
@@ -80,21 +80,21 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` int(2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `nip`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'Yogi Eka Prastiya', '18050623013', NULL, '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-28 19:41:24', '2020-06-28 19:41:24'),
-(4, 'Admin', '99999999999', NULL, '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-29 21:52:23', '2020-06-29 21:52:23'),
-(5, 'BBB', '7342348732', NULL, '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-30 01:39:04', '2020-06-30 01:39:04');
+INSERT INTO `users` (`id`, `name`, `nip`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
+(3, 'Yogi Eka Prastiya', '18050623013', '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-28 19:41:24', '2020-06-28 19:41:24', 1),
+(4, 'Admin', '99999999999', '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-29 21:52:23', '2020-06-29 21:52:23', 1),
+(5, 'BBB', '7342348732', '$2y$10$RvoUXkGLmrYImGquXkhdCuEuQ1e9IHMmLCNuI1RClmLKbu6OtsOEy', NULL, '2020-06-30 01:39:04', '2020-06-30 01:39:04', 0);
 
 --
 -- Indexes for dumped tables
