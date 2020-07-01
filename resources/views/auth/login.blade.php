@@ -18,9 +18,9 @@
                                         <select id="username" name="nip"
                                             class="form-control form-control-user @error('nip') is-invalid @enderror"
                                             required autocomplete="nip" autofocus placeholder="Ketik Nama atau NIP">
-                                            <option value="" disabled selected>- Ketik Nama atau NIP -</option>
+                                            <option disabled selected>- Ketik Nama atau NIP -</option>
                                             @foreach ($values as $value)
-                                            <option value="{{ $value->nip }}">{{ $value->nip }} - {{ $value->name }}
+                                            <option value="{{ $value->nip }}">{{ $value->nip }} - {{ $value->nama }}
                                             </option>
                                             @endforeach
                                         </select>

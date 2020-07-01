@@ -20,6 +20,7 @@
 
     {{-- Styles --}}
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -54,10 +55,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" v-pre> <b>
-                                    {{ Auth::user()->name }}</b> <span class="caret"></span>
+                                    {{ Auth::user()->nama }}</b> <span class="caret"></span>
                             </a>
                         </li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -77,5 +77,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('script-down')
 </body>
 </html>
