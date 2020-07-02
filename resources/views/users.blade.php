@@ -1,19 +1,10 @@
 @extends('layouts.app')
 
+@section('title',  $path )
 @section('content')
 <div class="container" style="font-size: 20px">
-    <nav aria-label="breadcrumb" style="margin:0;">
-        <ol class="breadcrumb shadow" style="background-color: rgb(0, 183, 255);">
-            <li class="breadcrumb-item active text-white" aria-current="page"> 
-                {{-- Path posisi link --}}
-                {{ $path }} 
-                {{-- Role Multi User --}}
-                @if ($role == 1)
-                    Admin                
-                @endif
-            </li>
-        </ol>
-    </nav>
+    {{-- Breadcrump --}}
+    @include('layouts.breadcrump')
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
         <div class="row">
             <div class="col-3">

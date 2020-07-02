@@ -3,6 +3,7 @@
 @section('title',  $path )
 @section('content')
 <div class="container" style="font-size: 20px">
+    {{-- Breadcrump --}}
     @include('layouts.breadcrump')
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
         <div class="col-3">
