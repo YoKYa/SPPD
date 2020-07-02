@@ -18,6 +18,7 @@
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 <img src="{{ asset('img/gres.png') }}" class="rounded mx-auto d-block img-fluid figure-img" alt="Logo PUSDA" width="20%">
                 <figcaption class=" text-center">Dinas Pekerjaan Umum Sumber Daya Air.</figcaption>
+                <h2 class="text-center">Selamat Datang</h2>
                 <br>
                 <div  iv class="row">
                     <div class="col-sm-6">
@@ -39,6 +40,23 @@
                         </div>
                     </div>
                 </div>
+                    @php
+                        $bln = array(
+                            '01' => 'Januari',
+                            '02' => 'Februari',
+                            '03' => 'Maret',
+                            '04' => 'April',
+                            '05' => 'Mei',
+                            '06' => 'Juni',
+                            '07' => 'Juli',
+                            '08' => 'Agustus',
+                            '09' => 'September',
+                            '10' => 'Oktober',
+                            '11' => 'November',
+                            '12' => 'Desember'
+                        );
+                    @endphp 
+                <h5> Tanggal : {{date('d').' '.$bln[date('m')].' '.date('Y')}}</h5>
             </div>
         </div>
     </div>
