@@ -8,8 +8,8 @@
     {{-- CSRF Token  --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SPPD') }}</title>
-
+    <title>{{ config('app.name', 'SPPD') }} - @yield('title')</title>
+    <link rel="shortcut icon" href="{{ asset('img/gres.png') }}" type="image/x-icon">
     {{-- Script dan css yang digunakan untuk Pilihan NIP dan nama (Harus Online untuk skrip)  --}}
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/list.js') }}"></script>
@@ -28,6 +28,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}" style="font-weight:bold;">
+                    <img src="{{ asset('img/gres.png') }}" alt="Logo" width="50px">
                     {{ config('app.name', 'SPPD') }} DPU SDA Jawa Timur
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"

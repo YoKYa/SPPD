@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'failed' => '(NIP/NAma) dan Password tidak Cocok.',
+    'failed' => '(NIP/Nama) dan Password tidak Cocok.',
     'throttle' => 'Terlalu banyak mencoba. Tunggu selama :seconds .',
 ];

@@ -1,5 +1,6 @@
 @extends('layouts.app') {{-- Template Master --}}
 
+@section('title', $path)
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
