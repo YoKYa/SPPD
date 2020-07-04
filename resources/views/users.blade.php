@@ -15,37 +15,49 @@
             @include('layouts.help')
             
             {{-- Bagian Isi --}}
-            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role == 0) hidden @endif>
-                <div class="tab-pane fade table-responsive-xl @if ($role == 1) active show @endif" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                    <button type="button" class="btn btn-primary" style="font-size: 12px">Tambah User</button>
+            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role != 'Admin') hidden @endif>
+                @if (session()->get('Success'))
+                <div class="alert alert-success">
+                    {{ session()->get('Success') }}
+                </div>
+                @endif
+                @if (session()->get('Failed'))
+                <div class="alert alert-danger">
+                    {{ session()->get('Failed') }}
+                </div>
+                @endif
+                
+                <div class="tab-pane fade table-responsive-xl @if ($role == 'Admin') active show @endif" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                    <a class="btn btn-primary" style="font-size: 12px" href="{{ Route('Users/CreateUser') }}">
+                        <i class="fa fa-user-plus"></i>&nbsp;
+                        Tambah User
+                    </a>
                     <br><br>
-                    <table class="table table-striped table-hover" style="font-size: 12px">
+                    <table class="table table-striped table-hover" style="font-size: 14px">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">NIP</th>
                                 <th scope="col" width="200px">Nama</th>
-                                <th scope="col">Golongan</th>
-                                <th scope="col" width="150px">Jabatan</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 0;?>
+                            <?php $no = $users->currentPage()*$users->perPage()-4; ?>
                             @foreach ($users as $user)
-                                <?php $no++;?>
                             <tr>
                                 <th>{{ $no }}</th>
                                 <td>{{ $user->nip }}</td>
                                 <td>{{ $user->nama }}</td>
-                                <td>{{ $user->golongan }}</td>
-                                <td>{{ $user->jabatan }}</td>
+                                <td>{{ $user->role }}</td>
                                 <td width="260px">
                                     <button type="button" class="btn btn-primary" style="font-size: 12px">Show</button>
                                     <button type="button" class="btn btn-info" style="font-size: 12px">Edit</button>
                                     <button type="button" class="btn btn-danger" style="font-size: 12px">Delete</button>
                                 </td>
                             </tr>
+                            <?php $no++;?>
                             @endforeach
                         </tbody>
                     </table>

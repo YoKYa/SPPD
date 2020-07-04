@@ -2,9 +2,10 @@
 
 @section('title',  $path )
 @section('content')
-<div class="container" style="font-size: 20px">
+<div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
     @include('layouts.breadcrump')
+
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
         <div class="col-3">
             {{-- Navigasi Menu --}}
@@ -16,47 +17,77 @@
             
             {{-- Bagian Isi --}}
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
-                <img src="{{ asset('img/gres.png') }}" class="rounded mx-auto d-block img-fluid figure-img" alt="Logo PUSDA" width="20%">
-                <figcaption class=" text-center">Dinas Pekerjaan Umum Sumber Daya Air.</figcaption>
-                <h2 class="text-center">Selamat Datang</h2>
-                <br>
+                @if (session()->get('Login'))
+                    <img src="{{ asset('img/gres.png') }}" class="rounded mx-auto d-block img-fluid figure-img" alt="Logo PUSDA" width="20%">
+                    <figcaption class=" text-center">Dinas Pekerjaan Umum Sumber Daya Air</figcaption>
+                    <h2 class="text-center">{{ session()->get('Login')  }} {{ $nama }}</h2>
+                    <br>
+                @endif
+                
+                @if ($role == 'Admin')
                 <div  iv class="row">
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Special title treatment</h5>
-                                <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary btn-block">Go somewhere</a>
+                                <h5 class="card-title text-left"> <i class="fa fa-envelope"></i> &nbsp;Data SPPD</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6">SPPD Berjalan</div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">Total SPPD </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left"></div>
+                                </div>
+                                <hr>
+                                <a href="#" class="btn btn-primary btn-block">Lihat Selengkapnya</a>
                             </div>
                         </div>
                     </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body ">
+                                <h5 class="card-title text-left"> <i class="fa fa-users"></i>&nbsp; Data Users</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6">Admin </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">{{ DB::table('users')->get()->where('role','Admin')->where('cek','1')->count() }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">Pegawai </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">{{ DB::table('users')->get()->where('role','Pegawai')->where('cek','1')->count() }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">Kepala Bidang </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">{{ DB::table('users')->get()->where('role','Kepala Bidang')->where('cek','1')->count() }}</div>
+                                </div>
+                                <hr>
+                                <a href="{{ Route('Users') }}" class="btn btn-primary btn-block">Lihat Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body ">
+                                <h5 class="card-title text-left"> <i class="fa fa-users"></i>&nbsp; Data Pegawai</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6">Total Pegawai </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">{{ DB::table('users')->get()->where('cek',1)->count() }}</div>
+                                </div>
+                                <hr>
+                                <a href="{{ Route('Users') }}" class="btn btn-primary btn-block">Lihat Selengkapnya</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                    @php
-                        $bln = array(
-                            '01' => 'Januari',
-                            '02' => 'Februari',
-                            '03' => 'Maret',
-                            '04' => 'April',
-                            '05' => 'Mei',
-                            '06' => 'Juni',
-                            '07' => 'Juli',
-                            '08' => 'Agustus',
-                            '09' => 'September',
-                            '10' => 'Oktober',
-                            '11' => 'November',
-                            '12' => 'Desember'
-                        );
-                    @endphp 
-                <h5> Tanggal : {{date('d').' '.$bln[date('m')].' '.date('Y')}}</h5>
+                @endif
             </div>
         </div>
     </div>
@@ -64,7 +95,5 @@
 @endsection
 
 @section('script-down')
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ asset('js/bootstrap.min.js')}}"></script>
 @endsection

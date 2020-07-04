@@ -18,18 +18,13 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
+    
 
     public function index(Request $request)
     {   
         $path = $request->path();
         $role = Auth::user()->role;
-        return view('dashboard', ['role' => $role, 'path'=>$path]);
-    }
-    public function users(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        $users = Auth::user()->orderBy('nama', 'asc')->paginate(5);
-        return view('users',['path'=>$path, 'role'=>$role], ['users'=>$users]);
+        $user = Auth::user()->nama;
+        return view('dashboard', ['role' => $role, 'path'=>$path, 'nama'=>$user]);
     }
 }

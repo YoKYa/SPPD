@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models\Auth;
+namespace App\Models\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,6 +21,7 @@ trait AuthenticatesUsers
      */
     public function showLoginForm(Request $request)
     {
+        
         $path = "Masuk";
         // Mengoper data user untuk login
         $value = DB::table('users')->orderBy('nama', 'asc')->get(['nip','nama']);
@@ -87,6 +88,7 @@ trait AuthenticatesUsers
      */
     protected function attemptLogin(Request $request)
     {
+
         return $this->guard()->attempt(
             $this->credentials($request),
             $request->filled('remember')
@@ -115,8 +117,10 @@ trait AuthenticatesUsers
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
+        session()->flash('Login', 'Selamat Datang');
 
         if ($response = $this->authenticated($request, $this->guard()->user())) {
+            
             return $response;
         }
 

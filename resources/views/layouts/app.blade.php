@@ -8,10 +8,11 @@
     {{-- CSRF Token  --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SPPD') }} - @yield('title')</title>
+    <title>{{ config('app.nama', 'SPPD') }} - @yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('img/gres.png') }}" type="image/x-icon">
+
     {{-- Script dan css yang digunakan untuk Pilihan NIP dan nama (Harus Online untuk skrip)  --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/list.js') }}"></script>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -20,29 +21,30 @@
 
     {{-- Styles --}}
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.css') }}">
 </head>
 
-<body>
+<body onload="tampilkanwaktu();setInterval('tampilkanwaktu()', 1000);">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                {{-- Header Nama dan Logo --}}
                 <a class="navbar-brand" href="{{ url('/') }}" style="font-weight:bold;">
                     <img src="{{ asset('img/gres.png') }}" alt="Logo" width="50px">
-                    {{ config('app.name', 'SPPD') }} DPU SDA Jawa Timur
+                    {{ config('app.nama', 'SPPD') }} DPU SDA Jawa Timur
                 </a>
+                {{-- Hanya diperlukan kalau ukuran Kecil --}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    {{-- <!-- Left Side Of Navbar --> --}}
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    {{-- <!-- Right Side Of Navbar --> --}}
+                    {{-- Navigasi Kanan --}}
                     <ul class="navbar-nav ml-auto">
-                        {{-- <!-- Authentication Links --> --}}
+                        {{-- Autentikasi Link --}}
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -73,11 +75,12 @@
                 </div>
             </div>
         </nav>
-
+        {{-- Isi Konten --}}
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    {{-- Script tambahan dalam sebuah halaman --}}
     @yield('script-down')
 </body>
 </html>

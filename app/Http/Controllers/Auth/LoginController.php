@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Http\Models\Auth\AuthenticatesUsers;
+use App\Models\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
