@@ -1,10 +1,10 @@
-@if ($role == 'Admin')
+@if (Auth::user()->role == 'Admin')
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ $role }}</h4>
+    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Dashboard') ? ' active' : '' }}" href="{{ Route('Dashboard') }}"
         role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
-    <a class="nav-link text-white{{ request()->is('Pegawai') ? ' active' : '' }}" href="{{ Route('Dashboard') }}"
+    <a class="nav-link text-white{{ request()->is('Pegawai') ? ' active' : '' }}" href="{{ Route('Pegawai') }}"
         role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-users"></i>&nbsp; Pegawai</a>
     <a class="nav-link text-white text-left dropdown-toggle" type="button" data-toggle="collapse" data-target="#SPPD"
         aria-expanded="false" aria-controls="multiCollapse"><i class="fa fa-envelope"></i>&nbsp; SPPD</a>
@@ -13,7 +13,7 @@
             <div class="collapse {{ request()->is('Users') ? ' show' : '' }}" id="SPPD">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-users"></i>
                         &nbsp; Entry Data
                     </a>
@@ -26,17 +26,17 @@
         Administrator</a>
     <div class="row">
         <div class="col">
-            <div class="collapse {{ request()->is('Users') ? ' show' : '' }}" id="Administrator">
+            <div class="collapse {{ request()->is('Users/Show') ? ' show' : '' }}" id="Administrator">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
-                    <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    <a class="nav-link text-left{{ request()->is('Users/Show') ? ' bg-white' : ' text-white' }}"
+                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-users"></i>
                         &nbsp; Data Users
                     </a>
                 </div>
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-envelope"></i>
                         &nbsp; Data SPPD
                     </a>
@@ -53,9 +53,9 @@
 </div>
 @endif
 
-@if ($role == "Kepala Bidang")
+@if (Auth::user()->role == "Kepala Bidang")
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ $role }}</h4>
+    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Users/Profile') ? ' active' : '' }}" href="{{ Route('Users/Profile') }}" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i>
     &nbsp; Profile
@@ -63,9 +63,9 @@
 </div>
 @endif
 
-@if ($role == "Pegawai")
+@if (Auth::user()->role == "Pegawai")
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ $role }}</h4>
+    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Users/Profile') ? ' active' : '' }}" href="{{ Route('Users/Profile') }}" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i>
     &nbsp; Profile

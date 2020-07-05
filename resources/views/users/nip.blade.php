@@ -4,8 +4,6 @@
 @section('title',  $path )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
-    {{-- Breadcrump --}}
-    @include('layouts.breadcrump')
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
         <div class="col-3">
             {{-- Navigasi Menu --}}
@@ -17,20 +15,13 @@
             
             {{-- Bagian Isi --}}
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
-                <h3 class="text-center">Profile</h3>
+                <h3 class="text-center">Pegawai</h3>
                 <br>
                 <div class="form-group row d-flex align-items-center">
                     <label for="NIP" class="col-sm-3 col-form-label">NIP </label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8 ">
                         <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" readonly id="NIP" placeholder="Ketik NIP..." name="NIP" value="{{ $user->nip }}" >
-                    </div>
-                </div>
-                <div class="form-group row d-flex align-items-center">
-                    <label for="Password" class="col-sm-3 col-form-label">Password</label>
-                    <div class="col-sm-1 text-right">:</div>
-                    <div class="col-sm-8">
-                        <a href="" class="btn btn-primary" id="Password" placeholder="Ketik Password..." name="Password" readonly> Ganti Password</a>
                     </div>
                 </div>
                 <hr>
@@ -79,8 +70,7 @@
                 </div>
                 <hr>
                 <div class="form-group text-left">
-                    <a href="{{ Route('Dashboard') }}" class="btn btn-danger btn-md">Kembali</a>
-                    <a href=" {{-- Route('Users/Profile/Edit') --}} " class="btn btn-primary btn-md">Edit User</a>
+                    <a href="{{ Route('Pegawai') }}" class="btn btn-danger btn-md">Kembali</a>
                 </div>
             </div>
         </div>

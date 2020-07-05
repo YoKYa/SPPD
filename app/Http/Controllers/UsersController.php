@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Auth\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -19,7 +19,11 @@ class UsersController extends Controller
     {
         $path = $request->path();
         $role = Auth::user()->role;  
-        $users = Auth::user()->orderBy('nama', 'asc')->paginate(5);
+        if ($request->search) {
+            $users = Auth::user()->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->orderBy('nama', 'asc')->paginate(5);
+        }else {
+            $users = Auth::user()->orderBy('nama', 'asc')->paginate(5);    
+        }
         return view('users',['path'=>$path, 'role'=>$role], ['users'=>$users]);
     }
     public function create(Request $request)
@@ -60,14 +64,33 @@ class UsersController extends Controller
         }else {
             session()->flash('Failed', 'Gagal Membuat User (NIP Sudah Dipakai)');
         }
-        return redirect(Route('Users'));
+        return redirect(Route('Users/Show'));
     }
     public function profile(Request $request)
     {
         $path = $request->path();
         $role = Auth::user()->role;
-        $users = Auth::user();
-        return view('users.profile',['path'=>$path, 'role'=>$role], ['users'=>$users]); 
+        $user = Auth::user();
+        return view('users.profile',['path'=>$path, 'role'=>$role], ['user'=>$user]); 
     }
 
+    public function pegawai(Request $request)
+    {
+        $path = $request->path();
+        $role = Auth::user()->role;
+        if ($request->search) {
+            $users = Auth::user()->where('cek',1)->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->orderBy('nama', 'asc')->paginate(5);
+        }else {
+            $users = Auth::user()->where('cek',1)->orderBy('nama', 'asc')->paginate(5);    
+        }
+        
+        return view('users.pegawai',['path'=>$path, 'role'=>$role], ['users'=>$users]);
+    }
+    public function nip(Request $request, $nip)
+    {
+        $path = $request->path();
+        $role = Auth::user()->role;
+        $user = User::select('*')->where('nip',$nip)->first();
+        return view('users.nip',['path'=>$path, 'role'=>$role], ['user'=>$user]); 
+    }
 }

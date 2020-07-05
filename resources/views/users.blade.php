@@ -2,7 +2,7 @@
 
 @section('title',  $path )
 @section('content')
-<div class="container" style="font-size: 20px">
+<div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
     @include('layouts.breadcrump')
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
@@ -28,11 +28,20 @@
                 @endif
                 
                 <div class="tab-pane fade table-responsive-xl @if ($role == 'Admin') active show @endif" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                    <a class="btn btn-primary" style="font-size: 12px" href="{{ Route('Users/CreateUser') }}">
-                        <i class="fa fa-user-plus"></i>&nbsp;
-                        Tambah User
-                    </a>
-                    <br><br>
+                    <h3 class="text-center">Daftar Users</h3>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <a class="btn btn-primary mb-1" style="font-size: 14px" href="{{ Route('Users/CreateUser') }}">
+                            <i class="fa fa-user-plus"></i>&nbsp;
+                            Tambah User
+                        </a>
+                        <form class="active-cyan-4 col-4 d-flex mb-1" action="/Users/Show" method="GET">
+                            <input class="form-control col-9" type="text" placeholder="Cari Nama atau NIP"
+                            aria-label="Search" name="search" value="{{ request()->search }}">&nbsp;
+                            <button type="submit" class="btn btn-primary col-3"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    
                     <table class="table table-striped table-hover" style="font-size: 14px">
                         <thead>
                             <tr>
@@ -70,7 +79,5 @@
 @endsection
 
 @section('script-down')
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ asset('js/bootstrap.min.js')}}"></script>
 @endsection

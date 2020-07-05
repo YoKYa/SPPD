@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 use function GuzzleHttp\Promise\all;
 
@@ -24,7 +26,7 @@ class DashboardController extends Controller
     {   
         $path = $request->path();
         $role = Auth::user()->role;
-        $user = Auth::user()->nama;
-        return view('dashboard', ['role' => $role, 'path'=>$path, 'nama'=>$user]);
+        $users = User::get();
+        return view('dashboard', ['role' => $role, 'path'=>$path],['users'=>$users]);
     }
 }
