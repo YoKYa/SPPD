@@ -62,15 +62,7 @@ if ($bulan=="January") {
             {{-- Path posisi link --}}
             <a  class="text-white" href="@if (Route($path)) {{  Route($path) }} @else '' @endif"> {{ $path }} </a>&nbsp;-&nbsp;
             {{-- Role Multi User --}}
-            @if ($role == 'Admin')
-                Admin                
-            @endif
-            @if ($role == 'Kepala Bidang')
-                Kepala Bidang
-            @endif
-            @if ($role == 'Pegawai')
-                Pegawai
-            @endif
+            {{ $role }}
         </li>
         <div class="text-white">
             <span id="clock"></span> - 

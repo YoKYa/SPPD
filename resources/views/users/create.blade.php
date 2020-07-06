@@ -115,7 +115,8 @@
                                 <option selected disabled>Pilih...</option>
                                 <option value="1">Admin</option>
                                 <option value="2"@if (Auth::user()->where('role','Kepala Bidang')->count() >= 1) hidden @else @endif>Kepala Bidang</option>
-                                <option value="3">Pegawai</option>
+                                <option value="3">Kepala Seksi</option>
+                                <option value="4">Staff</option>
                             </select>
                         </div>
                     </div>

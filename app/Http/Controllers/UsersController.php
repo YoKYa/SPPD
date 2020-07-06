@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+
 class UsersController extends Controller
 {
     
@@ -64,7 +66,7 @@ class UsersController extends Controller
         }else {
             session()->flash('Failed', 'Gagal Membuat User (NIP Sudah Dipakai)');
         }
-        return redirect(Route('Users/Show'));
+        return redirect(Route('Admin/Show'));
     }
     public function profile(Request $request)
     {
@@ -147,5 +149,11 @@ class UsersController extends Controller
         return redirect(Route('Dashboard'));
         session()->flash('Failed', '(Gagal) Update Profil');
         return redirect(Route('Users/Profile/ChangePassword'));
+    }
+    public function destroy(Request $request)
+    {
+
+        User::where('id', Auth::user()->id)->delete();
+        return Redirect(Route('Dashboard'));
     }
 }

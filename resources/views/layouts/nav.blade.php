@@ -1,6 +1,6 @@
 @if ($role == 'Admin')
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
+    <h4 align="center" style="color: white">{{ $role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Dashboard') ? ' active' : '' }}" href="{{ Route('Dashboard') }}"
         role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-th"></i>&nbsp; Dashboard</a>
@@ -53,9 +53,9 @@
 </div>
 @endif
 
-@if (Auth::user()->role == "Kepala Bidang")
+@if ($role == "Kepala Bidang")
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
+    <h4 align="center" style="color: white">{{ $role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Users/Profile') ? ' active' : '' }}" href="{{ Route('Users/Profile') }}" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i>
     &nbsp; Profile
@@ -63,9 +63,19 @@
 </div>
 @endif
 
-@if (Auth::user()->role == "Pegawai")
+@if ($role == "Kepala Seksi")
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
+    <h4 align="center" style="color: white">{{ $role }}</h4>
+    <hr style="border: 1px solid white; width:100%">
+    <a class="nav-link text-white{{ request()->is('Users/Profile') ? ' active' : '' }}" href="{{ Route('Users/Profile') }}" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i>
+    &nbsp; Profile
+    </a>
+</div>
+@endif
+
+@if ($role == "Staff")
+<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <h4 align="center" style="color: white">{{ $role }}</h4>
     <hr style="border: 1px solid white; width:100%">
     <a class="nav-link text-white{{ request()->is('Users/Profile') ? ' active' : '' }}" href="{{ Route('Users/Profile') }}" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fa fa-user"></i>
     &nbsp; Profile

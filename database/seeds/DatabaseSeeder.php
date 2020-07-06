@@ -30,14 +30,14 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'nama' => 'Kepala Seksi',
             'nip'  => '3000000000',
-            'password' => Hash::make('Kasi'),
+            'password' => Hash::make('kasi'),
             'role' => 3,
             'cek'  => 1
         ]);
         DB::table('users')->insert([
             'nama' => 'Staff',
             'nip'  => '4000000000',
-            'password' => Hash::make('staff '),
+            'password' => Hash::make('staff'),
             'role' => 4,
             'cek'  => 1
         ]);

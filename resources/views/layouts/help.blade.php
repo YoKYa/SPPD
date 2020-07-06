@@ -30,12 +30,19 @@
                         <li>Kepala Bidang</li>
                         <li>Kepala Bidang</li>
                         @endif
-                        @if ($role == 'Pegawai')
-                        <li>Pegawai</li>
-                        <li>Pegawai</li>
-                        <li>Pegawai</li>
-                        <li>Pegawai</li>
-                        <li>Pegawai</li>
+                        @if ($role == 'Kepala Seksi')
+                        <li>Kepala Seksi</li>
+                        <li>Kepala Seksi</li>
+                        <li>Kepala Seksi</li>
+                        <li>Kepala Seksi</li>
+                        <li>Kepala Seksi</li>
+                        @endif
+                        @if ($role == 'Staff')
+                        <li>Staff</li>
+                        <li>Staff</li>
+                        <li>Staff</li>
+                        <li>Staff</li>
+                        <li>Staff</li>
                         @endif
                     </ol>
                 </div>

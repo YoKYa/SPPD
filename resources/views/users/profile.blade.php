@@ -85,7 +85,35 @@
                     </div>
                     <div>
                         @if (Auth::user()->cek == 1)
-                            <a href="" class="btn btn-danger">Hapus User</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                            Hapus User
+                        </button>
+                            <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Anda yakin untuk menghapus ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Nama : {{ $user->nama }} </h6>
+                                        <h6>NIP&nbsp;&nbsp;&nbsp;&nbsp; : {{ $user->nip }}</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form action="/Users/Profile/Delete" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @endif
                     </div>
                     

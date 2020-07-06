@@ -66,17 +66,24 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">Pegawai </div>
-                                    <div class="col-sm-1">:</div>
-                                    <div class="col-sm-5 text-left">
-                                        {{ $users->where('role','Pegawai')->where('cek','1')->count() }}
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-6">Kepala Bidang </div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
                                         {{ $users->where('role','Kepala Bidang')->where('cek','1')->count() }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">Kepala Seksi </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">
+                                        {{ $users->where('role','Kepala Seksi')->where('cek','1')->count() }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">Staff</div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5 text-left">
+                                        {{ $users->where('role','Staff')->where('cek','1')->count() }}
                                     </div>
                                 </div>
                                 <hr>

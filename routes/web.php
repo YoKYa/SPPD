@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::prefix('Users')->middleware('auth')->group(function(){
     Route::get('Profile', 'UsersController@profile')->name('Users/Profile');
+    Route::delete('Profile/Delete', 'UsersController@destroy');
     Route::get('Profile/ChangePassword', 'UsersController@changepassword')->name('Users/Profile/ChangePassword');
     Route::patch('Profile/ChangePassword', 'UsersController@storepass');
     Route::get('Profile/Edit', 'UsersController@showedit')->name('Users/Profile/Edit');
