@@ -70,7 +70,7 @@
                 </div>
                 <hr>
                 <div class="form-group text-left">
-                    <a href="{{ Route('Pegawai') }}" class="btn btn-danger btn-md">Kembali</a>
+                    <a href="{{ Route('Pegawai') }}" class="btn btn-primary btn-md"> <i class="fa fa-arrow-left"></i> Kembali</a>
                 </div>
             </div>
         </div>

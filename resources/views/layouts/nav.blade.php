@@ -1,4 +1,4 @@
-@if (Auth::user()->role == 'Admin')
+@if ($role == 'Admin')
 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <h4 align="center" style="color: white">{{ Auth::user()->role }}</h4>
     <hr style="border: 1px solid white; width:100%">
@@ -13,7 +13,7 @@
             <div class="collapse {{ request()->is('Users') ? ' show' : '' }}" id="SPPD">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        href="{{ Route('Dashboard') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-users"></i>
                         &nbsp; Entry Data
                     </a>
@@ -26,17 +26,17 @@
         Administrator</a>
     <div class="row">
         <div class="col">
-            <div class="collapse {{ request()->is('Users/Show') ? ' show' : '' }}" id="Administrator">
+            <div class="collapse {{ request()->is('Admin/Show') ? ' show' : '' }}" id="Administrator">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
-                    <a class="nav-link text-left{{ request()->is('Users/Show') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    <a class="nav-link text-left{{ request()->is('Admin/Show') ? ' bg-white' : ' text-white' }}"
+                        href="{{ Route('Admin/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-users"></i>
                         &nbsp; Data Users
                     </a>
                 </div>
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}"
-                        href="{{ Route('Users/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        href="" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-envelope"></i>
                         &nbsp; Data SPPD
                     </a>

@@ -3,7 +3,6 @@
 
 @section('title',  $path )
 @section('content')
-@if ($role != 'Admin')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
     @include('layouts.breadcrump')
@@ -17,44 +16,19 @@
             @include('layouts.help')
             
             {{-- Bagian Isi --}}
-            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role == 'Admin') hidden @endif>
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="text-center">
-                            <h5>Maaf Anda Tidak Punya akses untuk halaman ini <br>
-                            <a href="{{ Route('Dashboard') }}">Klik Disini</a> <br>
-                            Untuk Kembali</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@else
-<div class="container-fluid" style="font-size: 20px">
-    {{-- Breadcrump --}}
-    @include('layouts.breadcrump')
-    <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
-        <div class="col-3">
-            {{-- Navigasi Menu --}}
-            @include('layouts.nav')
-        </div>
-        <div class="col-9">
-            {{-- Tombol Petunjuk --}}
-            @include('layouts.help')
-            
-            {{-- Bagian Isi --}}
+            @if ($role != 'Admin')
+            @include('layouts.akses')
+            @else
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role != 'Admin') hidden @endif>
                 <h3 class="text-center">Membuat User</h3>
                 <br>
-                <form method="POST" action="/Users/CreateUser">
+                <form method="POST" action="{{ Route('Admin/CreateUser') }}">
                     @csrf
                     <div class="form-group row d-flex align-items-center">
                         <label for="NIP" class="col-sm-3 col-form-label">NIP <span class="text-danger">*</span></label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8 ">
-                            <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" id="NIP" placeholder="Ketik NIP..." name="NIP" >
+                            <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" id="NIP" placeholder="Ketik NIP..." name="NIP" value="{{ old('NIP') }}">
                         </div>
                     </div>
                     
@@ -70,28 +44,28 @@
                         <label for="Nama" class="col-sm-3 col-form-label">Nama Lengkap<span class="text-danger">*</span></label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" placeholder="Ketik Nama Lengkap..." name="Nama">
+                            <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" placeholder="Ketik Nama Lengkap..." name="Nama" value="{{ old('Nama') }}">
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
                         <label for="Gelar" class="col-sm-3 col-form-label">Gelar</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control justify-content-center" id="Gelar" placeholder="Ketik Gelar..." name="Gelar">
+                            <input type="text" class="form-control justify-content-center" id="Gelar" placeholder="Ketik Gelar..." name="Gelar" value="{{ old('Gelar') }}">
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
                         <label for="Alamat" class="col-sm-3 col-form-label">Alamat Lengkap</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <textarea class="form-control justify-content-center" id="Alamat" placeholder="Ketik Alamat Lengkap..." name="Alamat"></textarea>
+                            <textarea class="form-control justify-content-center" id="Alamat" placeholder="Ketik Alamat Lengkap..." name="Alamat">{{ old('Alamat') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
                         <label for="TglLahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder="Ketik Tanggal Lahir..." name="TglLahir">
+                            <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder="Ketik Tanggal Lahir..." name="TglLahir" value="{{ old('TglLahir') }}">
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
@@ -113,10 +87,10 @@
                                 <option value="11">Penata (III/c)</option>
                                 <option value="12">Penata Tingkat I (III/d)</option>
                                 <option value="13">Pembina (IV/a)</option>
-                                <option value="13">Pembina Tingkat I (IV/b)</option>
-                                <option value="13">Pembina Utama Muda (IV/c)</option>
-                                <option value="13">Pembina Utama Madya (IV/d)</option>
-                                <option value="13">Pembina Utama (IV/e)</option>
+                                <option value="14">Pembina Tingkat I (IV/b)</option>
+                                <option value="15">Pembina Utama Muda (IV/c)</option>
+                                <option value="16">Pembina Utama Madya (IV/d)</option>
+                                <option value="17">Pembina Utama (IV/e)</option>
                             </select>
                         </div>
                     </div>
@@ -140,7 +114,7 @@
                             <select class="custom-select @error('Role') is-invalid @enderror" id="Role" name="Role">
                                 <option selected disabled>Pilih...</option>
                                 <option value="1">Admin</option>
-                                <option value="2">Kepala Bidang</option>
+                                <option value="2"@if (Auth::user()->where('role','Kepala Bidang')->count() >= 1) hidden @else @endif>Kepala Bidang</option>
                                 <option value="3">Pegawai</option>
                             </select>
                         </div>
@@ -155,11 +129,10 @@
                     </div>
                 </form>
             </div>
+            @endif
         </div>
     </div>
 </div>
-@endif
-
 @endsection
 
 @section('script-down')

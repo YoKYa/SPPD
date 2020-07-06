@@ -30,7 +30,7 @@
                     <label for="Password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <a href="" class="btn btn-primary" id="Password" placeholder="Ketik Password..." name="Password" readonly> Ganti Password</a>
+                        <a href="{{ Route('Users/Profile/ChangePassword') }}" class="btn btn-primary" id="Password" placeholder="Ketik Password..." name="Password" readonly> Ganti Password</a>
                     </div>
                 </div>
                 <hr>
@@ -78,9 +78,17 @@
                     </div>
                 </div>
                 <hr>
-                <div class="form-group text-left">
-                    <a href="{{ Route('Dashboard') }}" class="btn btn-danger btn-md">Kembali</a>
-                    <a href=" {{-- Route('Users/Profile/Edit') --}} " class="btn btn-primary btn-md">Edit User</a>
+                <div class="form-group d-flex justify-content-between">
+                    <div>
+                        <a href="{{ Route('Dashboard') }}" class="btn btn-primary btn-md"><i class="fa fa-arrow-left"></i> Kembali</a>
+                        <a href=" {{ Route('Users/Profile/Edit') }} " class="btn btn-primary btn-md">Edit User</a>
+                    </div>
+                    <div>
+                        @if (Auth::user()->cek == 1)
+                            <a href="" class="btn btn-danger">Hapus User</a>
+                        @endif
+                    </div>
+                    
                 </div>
             </div>
         </div>

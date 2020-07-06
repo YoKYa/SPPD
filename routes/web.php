@@ -23,8 +23,15 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::prefix('Users')->middleware('auth')->group(function(){
-    Route::get('Show', 'UsersController@show')->name('Users/Show');
-    Route::get('CreateUser', 'UsersController@create')->name('Users/CreateUser');
-    Route::post('CreateUser', 'UsersController@store');
     Route::get('Profile', 'UsersController@profile')->name('Users/Profile');
+    Route::get('Profile/ChangePassword', 'UsersController@changepassword')->name('Users/Profile/ChangePassword');
+    Route::patch('Profile/ChangePassword', 'UsersController@storepass');
+    Route::get('Profile/Edit', 'UsersController@showedit')->name('Users/Profile/Edit');
+    Route::patch('Profile/Edit', 'UsersController@storeedit');
+});
+
+Route::prefix('Admin')->middleware('auth')->group(function(){
+    Route::get('Show', 'UsersController@show')->name('Admin/Show');
+    Route::get('CreateUser', 'UsersController@create')->name('Admin/CreateUser');
+    Route::post('CreateUser', 'UsersController@store');
 });

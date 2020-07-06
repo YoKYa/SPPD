@@ -60,7 +60,7 @@ if ($bulan=="January") {
     <ol class="breadcrumb shadow d-flex justify-content-between" style="background-color: rgb(0, 183, 255);" onload="tampilkanwaktu();setInterval('tampilkanwaktu()', 1000);">
         <li class="breadcrumb-item text-white" aria-current="page"> 
             {{-- Path posisi link --}}
-            <a  class="text-white" href="@if (Route($path)) Route($path) @else '' @endif"> {{ $path }} </a>&nbsp;-&nbsp;
+            <a  class="text-white" href="@if (Route($path)) {{  Route($path) }} @else '' @endif"> {{ $path }} </a>&nbsp;-&nbsp;
             {{-- Role Multi User --}}
             @if ($role == 'Admin')
                 Admin                
@@ -69,7 +69,7 @@ if ($bulan=="January") {
                 Kepala Bidang
             @endif
             @if ($role == 'Pegawai')
-                Kepala Bidang
+                Pegawai
             @endif
         </li>
         <div class="text-white">

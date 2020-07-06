@@ -32,7 +32,7 @@
                                 <th scope="col" width="200px">Nama</th>
                                 <th scope="col">NIP</th>
                                 <th scope="col">Jabatan</th>
-                                <th scope="col">Pangkat</th>
+                                <th scope="col">Golongan</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>

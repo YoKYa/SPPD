@@ -26,7 +26,8 @@ class DashboardController extends Controller
     {   
         $path = $request->path();
         $role = Auth::user()->role;
+        $nama = Auth::user()->nama;
         $users = User::get();
-        return view('dashboard', ['role' => $role, 'path'=>$path],['users'=>$users]);
+        return view('dashboard', ['role' => $role, 'path'=>$path, 'nama'=>$nama],['users'=>$users]);
     }
 }

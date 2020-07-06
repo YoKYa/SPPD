@@ -15,7 +15,7 @@
             @include('layouts.help')
             
             {{-- Bagian Isi --}}
-            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role != 'Admin') hidden @endif>
+            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 @if (session()->get('Success'))
                 <div class="alert alert-success">
                     {{ session()->get('Success') }}
@@ -27,19 +27,20 @@
                 </div>
                 @endif
                 
-                <div class="tab-pane fade table-responsive-xl @if ($role == 'Admin') active show @endif" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                <div class="tab-pane fade table-responsive-xl active show" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
                     <h3 class="text-center">Daftar Users</h3>
                     <hr>
                     <div class="d-flex justify-content-between mb-3">
-                        <a class="btn btn-primary mb-1" style="font-size: 14px" href="{{ Route('Users/CreateUser') }}">
-                            <i class="fa fa-user-plus"></i>&nbsp;
-                            Tambah User
-                        </a>
-                        <form class="active-cyan-4 col-4 d-flex mb-1" action="/Users/Show" method="GET">
+                        <form class="active-cyan-4 col-4 d-flex mb-1" action="{{ Route('Admin/Show') }}" method="GET">
                             <input class="form-control col-9" type="text" placeholder="Cari Nama atau NIP"
                             aria-label="Search" name="search" value="{{ request()->search }}">&nbsp;
                             <button type="submit" class="btn btn-primary col-3"><i class="fa fa-search"></i></button>
                         </form>
+                        <a class="btn btn-primary mb-1" style="font-size: 14px" href="{{ Route('Admin/CreateUser') }}">
+                            <i class="fa fa-user-plus"></i>&nbsp;
+                            Tambah User
+                        </a>
+                        
                     </div>
                     
                     <table class="table table-striped table-hover" style="font-size: 14px">

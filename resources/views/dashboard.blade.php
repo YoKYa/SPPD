@@ -25,6 +25,11 @@
                 <h2 class="text-center">{{ session()->get('Login')  }} {{ $nama }}</h2>
                 <br>
                 @endif
+                @if (session()->get('Success'))
+                <div class="alert alert-success">
+                    {{ session()->get('Success') }}
+                </div>
+                @endif
 
                 @if ($role == 'Admin')
                 <div iv class="row">
@@ -75,7 +80,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <a href="{{ Route('Users/Show') }}" class="btn btn-primary btn-block">Lihat
+                                <a href="{{ Route('Admin/Show') }}" class="btn btn-primary btn-block">Lihat
                                     Selengkapnya</a>
                             </div>
                         </div>
