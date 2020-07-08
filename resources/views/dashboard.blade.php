@@ -17,7 +17,6 @@
             @include('layouts.help')
 
             {{-- Bagian Isi --}}
-            @if ($user->role_check(['Admin']))
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 @if (session()->get('Login'))
                 <img src="{{ asset('img/gres.png') }}" class="rounded mx-auto d-block img-fluid figure-img"
@@ -52,6 +51,7 @@
                             </div>
                         </div>
                     </div>
+                    @if ($user->role_check(['Admin']))
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body ">
@@ -91,6 +91,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body ">
@@ -110,7 +111,6 @@
                     </div>
                 </div>
             </div>
-            @endif
         </div>
     </div>
 </div>

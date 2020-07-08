@@ -17,7 +17,7 @@
             {{-- Bagian Isi --}}
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 <div class="tab-pane fade table-responsive-xl active show" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                    <h3 class="text-center">Daftar Pegawai</h3>
+                    <h3 class="text-center">Pegawai</h3>
                     <hr>
                     <form class="active-cyan-4 col-4 d-flex mb-3" action="/Pegawai" method="GET">
                         <input class="form-control col-9" type="text" placeholder="Cari Nama atau NIP"

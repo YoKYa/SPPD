@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::prefix('Users')->middleware('auth')->group(function(){
     Route::get('Profile', 'UsersController@profile')->name('Users/Profile');
-    Route::delete('Profile/Delete', 'UsersController@destroy');
+    Route::delete('Profile/Delete', 'UsersController@del');
     Route::get('Profile/ChangePassword', 'UsersController@changepassword')->name('Users/Profile/ChangePassword');
     Route::patch('Profile/ChangePassword', 'UsersController@storepass');
     Route::get('Profile/Edit', 'UsersController@showedit')->name('Users/Profile/Edit');
@@ -35,4 +35,10 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
     Route::get('Show', 'UsersController@show')->name('Admin/Show');
     Route::get('CreateUser', 'UsersController@create')->name('Admin/CreateUser');
     Route::post('CreateUser', 'UsersController@store');
+    Route::get('Show/{nip}', 'UsersController@showuser');
+    Route::get('Show/{nip}/ChangePassword', 'UsersController@changepass');
+    Route::patch('Show/{nip}/ChangePassword', 'UsersController@storechangepass');
+    Route::get('Show/{nip}/Edit', 'UsersController@showedituser');
+    Route::patch('Show/{nip}/Edit', 'UsersController@storeedituser');
+    Route::delete('Show/{nip}/Delete', 'UsersController@deluser');
 });

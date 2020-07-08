@@ -31,11 +31,11 @@ class UsersController extends Controller
         }else {
             $users = User::orderBy('nama','asc')->where('cek',1)->paginate(5);
         }
-        return view('users.pegawai', ['users'=>$users], ['user'=>$this->getUser()]);
+        return view('users.pegawai.pegawai', ['users'=>$users], ['user'=>$this->getUser()]);
     }
     public function nip($nip){
         $user_pegawai = User::select('*')->where('nip',$nip)->first();
-        return view('users.nip', ['user'=>$this->getUser()], ['user_pegawai'=>$user_pegawai]); 
+        return view('users.pegawai.nip', ['user'=>$this->getUser()], ['user_pegawai'=>$user_pegawai]); 
     }
 
     // Administrator Show Users, Create User , Store User
@@ -45,11 +45,11 @@ class UsersController extends Controller
         }else {
             $users = User::orderBy('nama','asc')->paginate(5);    
         }
-        return view('users.users',['users'=>$users], ['user'=>$this->getUser()]);
+        return view('users.admin.users',['users'=>$users], ['user'=>$this->getUser()]);
     }
-    public function create(Request $request){
+    public function create(){
         $golongan = User::enum_get('golongan','golongan');
-        return view('users.create', ['golongan'=>$golongan], ['user'=>$this->getUser()]);
+        return view('users.admin.create', ['golongan'=>$golongan], ['user'=>$this->getUser()]);
     }
     public function store(Request $request){
         $this->validate($request,[
@@ -93,13 +93,76 @@ class UsersController extends Controller
         }
         return redirect(Route('Admin/Show'));
     }
+    public function showuser($nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        return view('users.admin.profile', ['user'=>$this->getUser()], ['user_pegawai'=>$user_pegawai]); 
+    }
+    public function changepass($nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        return view('users.admin.changepassword',['user'=>$this->getUser()],['user_pegawai'=>$user_pegawai]);
+    }
+    public function storechangepass(Request $request,$nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        $this->validate($request,[
+            'password'              =>  'required|min:5',
+            'password_confirmation' =>  'required|min:5', 
+        ]);
+        $pass    = $request->password;
+        $passkon = $request->password_confirmation;
+        $user = $user_pegawai;
+        if ($pass == $passkon) {
+            $user->update([
+                'password'  => Hash::make($request->password),
+                'updated_at'=> now()
+            ]);
+            session()->flash('Success', '(Berhasil) Mengganti Password User '.$user->nama);
+            return redirect(Route('Admin/Show'));
+        }else{
+            session()->flash('Failed', '(Gagal) Password dan Password Konfirmasi Tidak Sama');
+            return redirect(Route('Users/Profile/ChangePassword'));
+        }
+    }
+    public function showedituser($nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        $golongan = User::enum_get('golongan','golongan');
+        return view('users.admin.edit', ['user'=>$this->getUser(), 'golongan'=>$golongan],['user_pegawai'=>$user_pegawai]);
+    }
+    public function storeedituser(Request $request, $nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        $this->validate($request,[
+            'Nama'      => 'required',
+            'NIP'       =>  'required|min:10|numeric'
+        ]);
+        $user = User::select()->where('id', $user_pegawai->id)->first();
+        $user->update([
+            'nama'      => $request->Nama,
+            'nip'       => $request->NIP,
+            'alamat'    => $request->Alamat,    
+            'tgllahir'  => $request->TglLahir,
+            'updated_at'=> now()
+        ]);
+        $user->jabatan->update([
+            'jabatan' => $request->Jabatan
+        ]);
+        $user->golongan->update([
+            'golongan' => $request->Golongan
+        ]);
+        session()->flash('Success', '(Berhasil) Update User '.$user_pegawai->nama);
+        return redirect(Route('Admin/Show'));
+    }
+    public function deluser($nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        $this->destroy($user_pegawai);
+        session()->flash('Success', 'Berhasil Menghapus User');
+        return Redirect(Route('Admin/Show'));
+    }
 
     // Show Profile, Change Password, Store Password, Show Edit Profile
     public function profile(){
-        return view('users.profile', ['user'=>$this->getUser()]); 
+        return view('users.profile.profile', ['user'=>$this->getUser()]); 
     }
-    public function changepassword(Request $request){
-        return view('users.changepassword',['user'=>$this->getUser()]);
+    public function changepassword(){
+        return view('users.profile.changepassword',['user'=>$this->getUser()]);
     }
     public function storepass(Request $request){
         $this->validate($request,[
@@ -121,13 +184,11 @@ class UsersController extends Controller
             return redirect(Route('Users/Profile/ChangePassword'));
         }
     }
-    public function showedit()
-    {
+    public function showedit(){
         $golongan = User::enum_get('golongan','golongan');
-        return view('users.edit', ['user'=>$this->getUser(), 'golongan'=>$golongan]);
+        return view('users.profile.edit', ['user'=>$this->getUser(), 'golongan'=>$golongan]);
     }
-    public function storeedit(Request $request)
-    {
+    public function storeedit(Request $request){
         $this->validate($request,[
             'Nama'      => 'required',
             'NIP'       =>  'required|min:10|numeric'
@@ -148,17 +209,18 @@ class UsersController extends Controller
         ]);
         session()->flash('Success', '(Berhasil) Update Profil');
         return redirect(Route('Dashboard'));
-        session()->flash('Failed', '(Gagal) Update Profil');
-        return redirect(Route('Users/Profile/ChangePassword'));
     }
-    public function destroy(Request $request)
-    {
-
-        User::where('id', Auth::user()->id)->delete();
+    public function del(){
+        $this->destroy($this->getUser());
         return Redirect(Route('Dashboard'));
     }
-    public function getUser()
-    {
+    
+
+    // Fungsi Diluar 
+    public function getUser(){
         return User::get()->where('id',Auth::user()->id)->first();
+    }
+    public function destroy($user){
+        $user->delete();
     }
 }

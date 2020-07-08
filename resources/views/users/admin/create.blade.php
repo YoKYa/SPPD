@@ -7,6 +7,7 @@
     {{-- Breadcrump --}}
     @include('layouts.breadcrump')
     <div class="row row-cols-10 shadow rounded-lg p-3 justify-content-center m-0" style="background-color: rgb(0, 183, 255)">
+        @if ($user->role_check(['Admin']))
         <div class="col-3">
             {{-- Navigasi Menu --}}
             @include('layouts.nav')
@@ -111,6 +112,10 @@
                 </form>
             </div>
         </div>
+        @else
+        @include('layouts.akses')
+        @endif
+        
     </div>
 </div>
 @endsection
