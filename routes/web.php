@@ -41,4 +41,6 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
     Route::get('Show/{nip}/Edit', 'UsersController@showedituser');
     Route::patch('Show/{nip}/Edit', 'UsersController@storeedituser');
     Route::delete('Show/{nip}/Delete', 'UsersController@deluser');
+
+    Route::get('/Setting', 'SettingController@index')->name('Setting');
 });

@@ -27,7 +27,7 @@
     Administrator</a>
     <div class="row">
         <div class="col">
-            <div class="collapse {{ request()->is('Admin/Show') ? ' show' : '' }}" id="Administrator">
+            <div class="collapse {{ request()->is('Admin/Show') ? ' show' : '' }} {{ request()->is('Admin/Setting') ? ' show' : '' }}" id="Administrator">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('Admin/Show') ? ' bg-white' : ' text-white' }}"
                         href="{{ Route('Admin/Show') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
@@ -40,6 +40,13 @@
                         href="" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-envelope"></i>
                         &nbsp; Data SPPD
+                    </a>
+                </div>
+                <div class="card border-succes ml-lg-5 bg-primary mb-2">
+                    <a class="nav-link text-left{{ request()->is('Admin/Setting') ? ' bg-white' : ' text-white' }}"
+                        href="{{ Route('Setting') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <i class="fa fa-cog"></i>
+                        &nbsp; Pengaturan
                     </a>
                 </div>
             </div>

@@ -42,6 +42,9 @@ class User extends Authenticatable
                 return True;
             }
         }
-
+    }
+    // Fungsi Diluar 
+    public static function getUser(){
+        return User::get()->where('id',Auth::user()->id)->first();
     }
 }
