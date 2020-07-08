@@ -16,7 +16,7 @@ Auth::routes(['register'=>false]);
 
 //Grup yang digunakan Autentikasi
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/Dashboard', 'DashboardController@index')->name('Dashboard');
+    Route::get('/Dashboard', 'UsersController@dashboard')->name('Dashboard');
     Route::get('/Pegawai', 'UsersController@pegawai')->name('Pegawai');
     Route::get('/Pegawai/{nip}', 'UsersController@nip');
 

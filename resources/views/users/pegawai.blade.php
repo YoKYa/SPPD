@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -15,8 +15,8 @@
             @include('layouts.help')
             
             {{-- Bagian Isi --}}
-            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role != 'Admin') hidden @endif>
-                <div class="tab-pane fade table-responsive-xl @if ($role == 'Admin') active show @endif" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
+                <div class="tab-pane fade table-responsive-xl active show" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
                     <h3 class="text-center">Daftar Pegawai</h3>
                     <hr>
                     <form class="active-cyan-4 col-4 d-flex mb-3" action="/Pegawai" method="GET">
@@ -43,8 +43,8 @@
                                     <th>{{ $no }}</th>
                                     <td>{{ $user->nama }}</td>
                                     <td>{{ $user->nip }}</td>
-                                    <td>{{ $user->jabatan }}</td>
-                                    <td>{{ $user->golongan }}</td>
+                                    <td>{{ $user->jabatan->jabatan }}</td>
+                                    <td>{{ $user->golongan->golongan }}</td>
                                     <td><a class="btn-sm btn-primary" href="{{ Route('Pegawai') }}/{{ $user->nip }}">
                                         Lihat
                                     </a></td>

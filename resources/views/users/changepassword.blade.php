@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -47,9 +47,15 @@
                         <div class="col-md-6">
                             <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
                         </div>
+                        
                     </div>
                     <hr>
+                    <div class="form-group row">
+                        <h6 class="col-md-7 text-md-right">Minimal 5 Karakter</h6>
+                    </div>
+                    
                     <div class="form-group text-center">
+                        
                         <a href="{{ Route('Dashboard') }}" class="btn btn-danger btn-md">Batal</a>
                         <button type="submit" class="btn btn-primary btn-md">Ganti Password</button>
                     </div>

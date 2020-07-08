@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -16,10 +16,7 @@
             @include('layouts.help')
             
             {{-- Bagian Isi --}}
-            @if ($role != 'Admin')
-            @include('layouts.akses')
-            @else
-            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role != 'Admin') hidden @endif>
+            <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 <h3 class="text-center">Membuat User</h3>
                 <br>
                 <form method="POST" action="{{ Route('Admin/CreateUser') }}">
@@ -74,23 +71,11 @@
                         <div class="col-sm-8">
                             <select class="custom-select" id="Golongan" name="Golongan">
                                 <option selected disabled>Pilih...</option>
-                                <option value="1">Juru Muda (I/a)</option>
-                                <option value="2">Juru Muda Tingkat I (I/b)</option>
-                                <option value="3">Juru (I/c)</option>
-                                <option value="4">Juru Tingkat I (I/d)</option>
-                                <option value="5">Pengatur Muda (II/a)</option>
-                                <option value="6">Pengatur Muda Tingkat I (II/b)</option>
-                                <option value="7">Pengatur (II/c)</option>
-                                <option value="8">Pengatur Tingkat I (II/d)</option>
-                                <option value="9">Penata Muda (III/a)</option>
-                                <option value="10">Penata Muda Tingkat I (III/b)</option>
-                                <option value="11">Penata (III/c)</option>
-                                <option value="12">Penata Tingkat I (III/d)</option>
-                                <option value="13">Pembina (IV/a)</option>
-                                <option value="14">Pembina Tingkat I (IV/b)</option>
-                                <option value="15">Pembina Utama Muda (IV/c)</option>
-                                <option value="16">Pembina Utama Madya (IV/d)</option>
-                                <option value="17">Pembina Utama (IV/e)</option>
+                                <?php $no = 1; ?>
+                                @foreach ($golongan as $gol)
+                                <option value="{{ $no }}">{{ $gol }}</option>
+                                <?php $no++; ?>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -98,12 +83,7 @@
                         <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <select class="custom-select" id="Jabatan" name="Jabatan">
-                                <option selected disabled>Pilih...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <input type="text" class="form-control justify-content-center" id="Jabatan" placeholder="Ketik Jabatan...." name="Jabatan" value="{{ old('Jabatan') }}">
                         </div>
                     </div>
                     <hr>
@@ -114,7 +94,7 @@
                             <select class="custom-select @error('Role') is-invalid @enderror" id="Role" name="Role">
                                 <option selected disabled>Pilih...</option>
                                 <option value="1">Admin</option>
-                                <option value="2"@if (Auth::user()->where('role','Kepala Bidang')->count() >= 1) hidden @else @endif>Kepala Bidang</option>
+                                <option value="2">Kepala Bidang</option>
                                 <option value="3">Kepala Seksi</option>
                                 <option value="4">Staff</option>
                             </select>
@@ -130,7 +110,6 @@
                     </div>
                 </form>
             </div>
-            @endif
         </div>
     </div>
 </div>

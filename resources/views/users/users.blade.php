@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}

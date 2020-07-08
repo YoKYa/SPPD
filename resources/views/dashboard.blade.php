@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $path )
+@section('title', request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -17,12 +17,13 @@
             @include('layouts.help')
 
             {{-- Bagian Isi --}}
+            @if ($user->role_check(['Admin']))
             <div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
                 @if (session()->get('Login'))
                 <img src="{{ asset('img/gres.png') }}" class="rounded mx-auto d-block img-fluid figure-img"
                     alt="Logo PUSDA" width="20%">
                 <figcaption class=" text-center">Dinas Pekerjaan Umum Sumber Daya Air</figcaption>
-                <h2 class="text-center">{{ session()->get('Login')  }} {{ $nama }}</h2>
+                <h2 class="text-center">{{ session()->get('Login')  }} {{ $user->nama }}</h2>
                 <br>
                 @endif
                 @if (session()->get('Success'))
@@ -30,8 +31,6 @@
                     {{ session()->get('Success') }}
                 </div>
                 @endif
-
-                @if ($role == 'Admin')
                 <div iv class="row">
                     <div class="col-sm-6">
                         <div class="card">
@@ -62,28 +61,28 @@
                                     <div class="col-sm-6">Admin </div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
-                                        {{ $users->where('role','Admin')->where('cek','1')->count() }}
+                                        {{ $user->where('role','Admin')->where('cek','1')->count() }}
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">Kepala Bidang </div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
-                                        {{ $users->where('role','Kepala Bidang')->where('cek','1')->count() }}
+                                        {{ $user->where('role','Kepala Bidang')->where('cek','1')->count() }}
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">Kepala Seksi </div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
-                                        {{ $users->where('role','Kepala Seksi')->where('cek','1')->count() }}
+                                        {{ $user->where('role','Kepala Seksi')->where('cek','1')->count() }}
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">Staff</div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
-                                        {{ $users->where('role','Staff')->where('cek','1')->count() }}
+                                        {{ $user->where('role','Staff')->where('cek','1')->count() }}
                                     </div>
                                 </div>
                                 <hr>
@@ -101,7 +100,7 @@
                                     <div class="col-sm-6">Total Pegawai </div>
                                     <div class="col-sm-1">:</div>
                                     <div class="col-sm-5 text-left">
-                                        {{ $users->where('cek',1)->count() }}</div>
+                                        {{ $user->where('cek',1)->count() }}</div>
                                 </div>
                                 <hr>
                                 <a href="{{ Route('Pegawai') }}" class="btn btn-primary btn-block">Lihat
@@ -110,8 +109,8 @@
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
+            @endif
         </div>
     </div>
 </div>

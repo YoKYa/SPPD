@@ -1,4 +1,4 @@
-<div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent" @if ($role == 'Admin') hidden @endif>
+<div class="tab-content bg-light rounded-lg shadow p-4" id="v-pills-tabContent">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="text-center">

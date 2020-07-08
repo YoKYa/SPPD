@@ -14,9 +14,12 @@ class CreateJabatanTable extends Migration
     public function up()
     {
         Schema::create('jabatan', function (Blueprint $table) {
-            $table->id();
-            $table->string('jabatan',100);
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('jabatan',100)->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

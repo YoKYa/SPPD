@@ -57,23 +57,11 @@
                         <div class="col-sm-8">
                             <select class="custom-select" id="Golongan" name="Golongan">
                                 <option selected disabled>Pilih...</option>
-                                <option value="1" @if ($users->golongan == 'Juru Muda (I/a)') selected @endif >Juru Muda (I/a)</option>
-                                <option value="2" @if ($users->golongan == 'Juru Muda Tingkat I (I/b)') selected @endif >Juru Muda Tingkat I (I/b)</option>
-                                <option value="3" @if ($users->golongan == 'Juru (I/c)') selected @endif >Juru (I/c)</option>
-                                <option value="4" @if ($users->golongan == 'Juru Tingkat I (I/d)') selected @endif >Juru Tingkat I (I/d)</option>
-                                <option value="5" @if ($users->golongan == 'Pengatur Muda (II/a)') selected @endif >Pengatur Muda (II/a)</option>
-                                <option value="6" @if ($users->golongan == 'Pengatur Muda Tingkat I (II/b)') selected @endif >Pengatur Muda Tingkat I (II/b)</option>
-                                <option value="7" @if ($users->golongan == 'Pengatur (II/c)') selected @endif >Pengatur (II/c)</option>
-                                <option value="8" @if ($users->golongan == 'Pengatur Tingkat I (II/d)') selected @endif >Pengatur Tingkat I (II/d)</option>
-                                <option value="9" @if ($users->golongan == 'Penata Muda (III/a)') selected @endif >Penata Muda (III/a)</option>
-                                <option value="10" @if ($users->golongan == 'Penata Muda Tingkat I (III/b)') selected @endif >Penata Muda Tingkat I (III/b)</option>
-                                <option value="11" @if ($users->golongan == 'Penata (III/c)') selected @endif >Penata (III/c)</option>
-                                <option value="12" @if ($users->golongan == 'Penata Tingkat I (III/d)') selected @endif >Penata Tingkat I (III/d)</option>
-                                <option value="13" @if ($users->golongan == 'Pembina (IV/a)') selected @endif >Pembina (IV/a)</option>
-                                <option value="14" @if ($users->golongan == 'Pembina Tingkat I (IV/b)') selected @endif >Pembina Tingkat I (IV/b)</option>
-                                <option value="15" @if ($users->golongan == 'Pembina Utama Muda (IV/c)') selected @endif >Pembina Utama Muda (IV/c)</option>
-                                <option value="16" @if ($users->golongan == 'Pembina Utama Madya (IV/d)') selected @endif >Pembina Utama Madya (IV/d)</option>
-                                <option value="17" @if ($users->golongan == 'Pembina Utama (IV/e)') selected @endif >Pembina Utama (IV/e)</option>
+                                <?php $no = 1; ?>
+                                @foreach ($golongan as $gol)
+                                <option value="{{ $no }}" @if ($users->golongan->golongan == $gol) selected @endif>{{ $gol }}</option>
+                                <?php $no++; ?>
+                                @endforeach
                             </select> 
                         </div>
                     </div>
@@ -81,17 +69,12 @@
                         <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <select class="custom-select" id="Jabatan" name="Jabatan">
-                                <option selected disabled>Pilih...</option>
-                                <option value="1" @if ($users->jabatan == "") @endif>One</option>
-                                <option value="2" @if ($users->jabatan == "") @endif>Two</option>
-                                <option value="3" @if ($users->jabatan == "") @endif>Three</option>
-                            </select>
+                            <input type="text" class="form-control justify-content-center" id="Jabatan" placeholder="Ketik Jabatan...." name="Jabatan" value="{{ $users->jabatan->jabatan }}">
                         </div>
                     </div>
                     <div class="form-group text-left">
                         <a href="{{ Route('Dashboard') }}" class="btn btn-danger btn-md">Batal</a>
-                        <button type="submit" class="btn btn-primary btn-md">Edit User</button>
+                        <button type="submit" class="btn btn-primary btn-md">Simpan</button>
                     </div>
                 </form>
             </div>

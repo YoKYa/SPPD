@@ -2,40 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\Auth\User;
-use Illuminate\Contracts\Session\Session;
+use App\Models\Golongan;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Session\Session;
+use Symfony\Component\VarDumper\Caster\EnumStub;
 
 class UsersController extends Controller
 {
-    
-    public function __construct()
-    {
+    // Auth
+    public function __construct(){
         $this->middleware('auth');
     }
-    public function show(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;  
+    // Dashboard
+    public function dashboard(){   
+        return view('dashboard',['user'=>$this->getUser()]);
+    }
+    // Pegawai & show Pegawai
+    public function pegawai(Request $request){
         if ($request->search) {
-            $users = Auth::user()->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->orderBy('nama', 'asc')->paginate(5);
+            $users = User::orderBy('nama','asc')->where('cek',1)->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->paginate(5);
         }else {
-            $users = Auth::user()->orderBy('nama', 'asc')->paginate(5);    
+            $users = User::orderBy('nama','asc')->where('cek',1)->paginate(5);
         }
-        return view('users.users',['path'=>$path, 'role'=>$role], ['users'=>$users]);
+        return view('users.pegawai', ['users'=>$users], ['user'=>$this->getUser()]);
     }
-    public function create(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        return view('users.create', ['path'=>$path, 'role'=>$role]);
+    public function nip($nip){
+        $user_pegawai = User::select('*')->where('nip',$nip)->first();
+        return view('users.nip', ['user'=>$this->getUser()], ['user_pegawai'=>$user_pegawai]); 
     }
-    public function store(Request $request)
-    {
+
+    // Administrator Show Users, Create User , Store User
+    public function show(Request $request){
+        if ($request->search) {
+            $users = User::orderBy('nama','asc')->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->paginate(5);
+        }else {
+            $users = User::orderBy('nama','asc')->paginate(5);    
+        }
+        return view('users.users',['users'=>$users], ['user'=>$this->getUser()]);
+    }
+    public function create(Request $request){
+        $golongan = User::enum_get('golongan','golongan');
+        return view('users.create', ['golongan'=>$golongan], ['user'=>$this->getUser()]);
+    }
+    public function store(Request $request){
         $this->validate($request,[
             'Nama'      => 'required',
             'NIP'       =>  'required|min:10|numeric',
@@ -44,12 +60,14 @@ class UsersController extends Controller
 
         ]);
         $Cek = User::select('nip')->where('nip',$request->NIP)->count();
+
         // Name Check
         if ($request->Gelar == null) {
             $Nama = $request->Nama;
         }else {
             $Nama = $request->Nama . ', ' . $request->Gelar;
         }
+
         if ($Cek != True) {
             User::create([
                 'nama'      => $Nama,
@@ -57,10 +75,17 @@ class UsersController extends Controller
                 'alamat'    => $request->Alamat,
                 'password'  => Hash::make($request->Password),
                 'tgllahir'  => $request->TglLahir,
-                'golongan'  => $request->Golongan,
-                'jabatan'   => $request->Jabatan,
                 'created_at'=> now(),
                 'role'      => $request->Role
+            ]);
+            $user_temp = User::select('id')->where('nip',$request->NIP)->first();
+            Jabatan::create([
+                'user_id' => $user_temp->id,
+                'jabatan' => $request->Jabatan
+            ]);
+            Golongan::create([
+                'user_id' => $user_temp->id,
+                'golongan' => $request->Golongan
             ]);
             session()->flash('Success', 'Berhasil Membuat User');
         }else {
@@ -68,39 +93,15 @@ class UsersController extends Controller
         }
         return redirect(Route('Admin/Show'));
     }
-    public function profile(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        $user = Auth::user();
-        return view('users.profile',['path'=>$path, 'role'=>$role], ['user'=>$user]); 
-    }
 
-    public function pegawai(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        if ($request->search) {
-            $users = Auth::user()->where('cek',1)->where('nama','LIKE','%'.$request->search.'%')->orwhere('nip','LIKE','%'.$request->search.'%')->orderBy('nama', 'asc')->paginate(5);
-        }else {
-            $users = Auth::user()->where('cek',1)->orderBy('nama', 'asc')->paginate(5);    
-        }
-        
-        return view('users.pegawai',['path'=>$path, 'role'=>$role], ['users'=>$users]);
+    // Show Profile, Change Password
+    public function profile(){
+        return view('users.profile', ['user'=>$this->getUser()]); 
     }
-    public function nip(Request $request, $nip)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        $user = User::select('*')->where('nip',$nip)->first();
-        return view('users.nip',['path'=>$path, 'role'=>$role], ['user'=>$user]); 
+    public function changepassword(Request $request){
+        return view('users.changepassword',['user'=>$this->getUser()]);
     }
-    public function changepassword(Request $request)
-    {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        return view('users.changepassword',['path'=>$path, 'role'=>$role]);
-    }
+    
     public function storepass(Request $request)
     {
         $this->validate($request,[
@@ -126,8 +127,9 @@ class UsersController extends Controller
     {
         $path = $request->path();
         $role = Auth::user()->role;
-        $users = Auth::user();
-        return view('users.edit', ['path'=>$path, 'role'=>$role], ['users'=>$users]);
+        $users = User::get()->where('id',Auth::user()->id)->first();
+        $golongan = User::enum_get('golongan','golongan');
+        return view('users.edit', ['path'=>$path, 'role'=>$role], ['users'=>$users, 'golongan'=>$golongan]);
     }
     public function storeedit(Request $request)
     {
@@ -141,9 +143,13 @@ class UsersController extends Controller
             'nip'       => $request->NIP,
             'alamat'    => $request->Alamat,    
             'tgllahir'  => $request->TglLahir,
-            'golongan'  => $request->Golongan,
-            'jabatan'   => $request->Jabatan,
             'updated_at'=> now()
+        ]);
+        $user->jabatan->update([
+            'jabatan' => $request->Jabatan
+        ]);
+        $user->golongan->update([
+            'golongan' => $request->Golongan
         ]);
         session()->flash('Success', '(Berhasil) Update Profil');
         return redirect(Route('Dashboard'));
@@ -155,5 +161,9 @@ class UsersController extends Controller
 
         User::where('id', Auth::user()->id)->delete();
         return Redirect(Route('Dashboard'));
+    }
+    public function getUser()
+    {
+        return User::get()->where('id',Auth::user()->id)->first();
     }
 }

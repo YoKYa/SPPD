@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -23,14 +23,14 @@
                     <label for="NIP" class="col-sm-3 col-form-label">NIP </label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8 ">
-                        <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" readonly id="NIP" placeholder="Ketik NIP..." name="NIP" value="{{ $user->nip }}" >
+                        <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" readonly id="NIP" placeholder="NIP..." name="NIP" value="{{ $user->nip }}" >
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
                     <label for="Password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <a href="{{ Route('Users/Profile/ChangePassword') }}" class="btn btn-primary" id="Password" placeholder="Ketik Password..." name="Password" readonly> Ganti Password</a>
+                        <a href="{{ Route('Users/Profile/ChangePassword') }}" class="btn btn-primary" id="Password" placeholder=" Password..." name="Password" readonly> Ganti Password</a>
                     </div>
                 </div>
                 <hr>
@@ -38,35 +38,35 @@
                     <label for="Nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" readonly placeholder="Ketik Nama Lengkap..." name="Nama" value="{{ $user->nama }}">
+                        <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" readonly placeholder=" Nama Lengkap..." name="Nama" value="{{ $user->nama }}">
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
                     <label for="Alamat" class="col-sm-3 col-form-label">Alamat Lengkap</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <textarea class="form-control justify-content-center" id="Alamat" readonly placeholder="Ketik Alamat Lengkap..." name="Alamat">{{ $user->alamat }}</textarea>
+                        <textarea class="form-control justify-content-center" id="Alamat" readonly placeholder=" Alamat Lengkap..." name="Alamat">{{ $user->alamat }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
                     <label for="TglLahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder="Ketik Tanggal Lahir..." name="TglLahir" readonly value="{{ $user->tgllahir }}">
+                        <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder=" Tanggal Lahir..." name="TglLahir" readonly value="{{ $user->tgllahir }}">
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
                     <label for="Golongan" class="col-sm-3 col-form-label">Golongan</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control justify-content-center" id="Golongan" readonly placeholder="Ketik Golongan..." name="Golongan" value="{{ $user->golongan }}">
+                        <input type="text" class="form-control justify-content-center" id="Golongan" readonly placeholder="Golongan..." name="Golongan" value="{{ $user->golongan->golongan }}">
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
                     <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control justify-content-center" id="Jabatan" readonly placeholder="Ketik Jabatan..." name="Jabatan" value="{{ $user->jabatan }}">
+                        <input type="text" class="form-control justify-content-center" id="Jabatan" readonly placeholder="Jabatan..." name="Jabatan" value="{{ $user->jabatan->jabatan }}">
                     </div>
                 </div>
                 <hr>
