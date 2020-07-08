@@ -94,23 +94,21 @@ class UsersController extends Controller
         return redirect(Route('Admin/Show'));
     }
 
-    // Show Profile, Change Password
+    // Show Profile, Change Password, Store Password, Show Edit Profile
     public function profile(){
         return view('users.profile', ['user'=>$this->getUser()]); 
     }
     public function changepassword(Request $request){
         return view('users.changepassword',['user'=>$this->getUser()]);
     }
-    
-    public function storepass(Request $request)
-    {
+    public function storepass(Request $request){
         $this->validate($request,[
             'password'              =>  'required|min:5',
             'password_confirmation' =>  'required|min:5', 
         ]);
         $pass    = $request->password;
         $passkon = $request->password_confirmation;
-        $user = User::select()->where('id', Auth::user()->id)->first();
+        $user = $this->getUser();
         if ($pass == $passkon) {
             $user->update([
                 'password'  => Hash::make($request->password),
@@ -123,13 +121,10 @@ class UsersController extends Controller
             return redirect(Route('Users/Profile/ChangePassword'));
         }
     }
-    public function showedit(Request $request)
+    public function showedit()
     {
-        $path = $request->path();
-        $role = Auth::user()->role;
-        $users = User::get()->where('id',Auth::user()->id)->first();
         $golongan = User::enum_get('golongan','golongan');
-        return view('users.edit', ['path'=>$path, 'role'=>$role], ['users'=>$users, 'golongan'=>$golongan]);
+        return view('users.edit', ['user'=>$this->getUser(), 'golongan'=>$golongan]);
     }
     public function storeedit(Request $request)
     {

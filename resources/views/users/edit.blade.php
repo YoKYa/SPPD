@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title',  $path )
+@section('title',  request()->path() )
 @section('content')
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -26,7 +26,7 @@
                         <label for="NIP" class="col-sm-3 col-form-label">NIP <span class="text-danger">*</span></label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8 ">
-                            <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" id="NIP" placeholder="Ketik NIP..." name="NIP" value="{{ $users->nip }}">
+                            <input type="number" class="form-control justify-content-center @error('NIP') is-invalid @enderror" id="NIP" placeholder="Ketik NIP..." name="NIP" value="{{ $user->nip }}">
                         </div>
                     </div>                    
                     <hr>
@@ -34,21 +34,21 @@
                         <label for="Nama" class="col-sm-3 col-form-label">Nama Lengkap<span class="text-danger">*</span></label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" placeholder="Ketik Nama Lengkap..." name="Nama" value="{{ $users->nama }}">
+                            <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" placeholder="Ketik Nama Lengkap..." name="Nama" value="{{ $user->nama }}">
                         </div>
                     </div> 
                     <div class="form-group row d-flex align-items-center">
                         <label for="Alamat" class="col-sm-3 col-form-label">Alamat Lengkap</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <textarea class="form-control justify-content-center" id="Alamat" placeholder="Ketik Alamat Lengkap..." name="Alamat">{{ $users->alamat }}</textarea>
+                            <textarea class="form-control justify-content-center" id="Alamat" placeholder="Ketik Alamat Lengkap..." name="Alamat">{{ $user->alamat }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
                         <label for="TglLahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder="Ketik Tanggal Lahir..." name="TglLahir" value="{{ $users->tgllahir }}">
+                            <input type="date" class="form-control justify-content-center" id="TglLahir" placeholder="Ketik Tanggal Lahir..." name="TglLahir" value="{{ $user->tgllahir }}">
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
@@ -59,7 +59,7 @@
                                 <option selected disabled>Pilih...</option>
                                 <?php $no = 1; ?>
                                 @foreach ($golongan as $gol)
-                                <option value="{{ $no }}" @if ($users->golongan->golongan == $gol) selected @endif>{{ $gol }}</option>
+                                <option value="{{ $no }}" @if ($user->golongan->golongan == $gol) selected @endif>{{ $gol }}</option>
                                 <?php $no++; ?>
                                 @endforeach
                             </select> 
@@ -69,7 +69,7 @@
                         <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control justify-content-center" id="Jabatan" placeholder="Ketik Jabatan...." name="Jabatan" value="{{ $users->jabatan->jabatan }}">
+                            <input type="text" class="form-control justify-content-center" id="Jabatan" placeholder="Ketik Jabatan...." name="Jabatan" value="{{ $user->jabatan->jabatan }}">
                         </div>
                     </div>
                     <div class="form-group text-left">
