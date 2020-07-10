@@ -1,4 +1,7 @@
 <script type="text/javascript">        
+    function Play() {
+        setInterval(tampilkanwaktu(),1000);
+    }
     function tampilkanwaktu(){         //fungsi ini akan dipanggil di bodyOnLoad dieksekusi tiap 1000ms = 1detik    
         var waktu = new Date();            //membuat object date berdasarkan waktu saat 
         var sh = waktu.getHours() + "";    //memunculkan nilai jam, //tambahan script + "" supaya variable sh bertipe string sehingga bisa dihitung panjangnya : sh.length    //ambil nilai menit
@@ -57,7 +60,7 @@ if ($bulan=="January") {
 ?>
 
 <nav aria-label="breadcrumb" style="margin:0;">
-    <ol class="breadcrumb shadow d-flex justify-content-between" style="background-color: rgb(0, 183, 255);" onload="tampilkanwaktu();setInterval('tampilkanwaktu()', 1000);">
+    <ol class="breadcrumb shadow d-flex justify-content-between" style="background-color: rgb(0, 183, 255);" onload="Play();">
         <li class="breadcrumb-item text-white" aria-current="page"> 
             {{-- Path posisi link --}}
             <a  class="text-white">{{ request()->path() }} </a>&nbsp;-&nbsp;

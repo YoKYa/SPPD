@@ -89,7 +89,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="{{ Route('Admin/Show') }}/{{ $user_peg->nip }}/Delete" method="post">
+                                                        <form action="{{ Route('Admin/Show') }}/{{ $user_peg->nip }}/delete" method="post">
                                                             @method('delete')
                                                             @csrf   
                                                             <button type="submit" class="btn btn-danger">Ya, Hapus</button>

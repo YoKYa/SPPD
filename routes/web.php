@@ -43,4 +43,14 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
     Route::delete('Show/{nip}/Delete', 'UsersController@deluser');
 
     Route::get('/Setting', 'SettingController@index')->name('Setting');
+    Route::patch('/Setting/setnomorsurat', 'SettingController@setnomorsurat')->name('SetNomorSurat');
+    Route::patch('/Setting/settahunsurat', 'SettingController@settahunsurat')->name('SetTahunSurat');
+    Route::get('/Setting/dasarsurat', 'SettingController@dasarsurat')->name('DasarSurat');
+    
+    Route::post('/Setting/dasarsurat', 'SettingController@tambahdasarsurat');
+    Route::get('/Setting/dasarsurat/{id}/edit', 'SettingController@editdasarsurat');
+    Route::patch('/Setting/dasarsurat/{id}/edit', 'SettingController@storeeditdasarsurat');
+    Route::delete('/Setting/dasarsurat/{id}/delete', 'SettingController@deldasarsurat');
 });
+
+Route::get('/Cetak', 'CetakController@cetak');

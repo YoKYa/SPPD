@@ -95,7 +95,9 @@
                             <select class="custom-select @error('Role') is-invalid @enderror" id="Role" name="Role">
                                 <option selected disabled>Pilih...</option>
                                 <option value="1">Admin</option>
-                                <option value="2">Kepala Bidang</option>
+                                <option value="2" @if ((DB::table('users')->where('role','Kepala Bidang')->count()) >= 1 )
+                                hidden                                    
+                                @endif>Kepala Bidang</option>
                                 <option value="3">Kepala Seksi</option>
                                 <option value="4">Staff</option>
                             </select>

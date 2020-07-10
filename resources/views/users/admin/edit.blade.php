@@ -73,6 +73,41 @@
                             <input type="text" class="form-control justify-content-center" id="Jabatan" placeholder="Ketik Jabatan...." name="Jabatan" value="{{ $user_pegawai->jabatan->jabatan }}">
                         </div>
                     </div>
+                    <hr>
+                    <div class="form-group row d-flex align-items-center">
+                        @if ($user_pegawai->cek == 1)
+                        <label for="Role" class="col-sm-3 col-form-label">Sebagai<span class="text-danger">*</span></label>
+                        <div class="col-sm-1 text-right">:</div>
+                        <div class="col-sm-8">
+                            <select class="custom-select @error('Role') is-invalid @enderror" id="Role" name="Role">
+                                <option selected disabled>Pilih...</option>
+                                <option value="1" @if ($user_pegawai->role =='Admin')
+                                    selected
+                                @endif>Admin</option>
+                                <option value="2" @if ((DB::table('users')->where('role','Kepala Bidang')->count()) >= 1 )
+                                hidden                                    
+                                @endif
+                                @if ($user_pegawai->role =='Kepala Bidang')
+                                    selected
+                                @endif
+                                >Kepala Bidang</option>
+                                <option value="3" 
+                                @if ($user_pegawai->role =='Kepala Seksi')
+                                    selected
+                                @endif>Kepala Seksi</option>
+                                <option value="4" @if ($user_pegawai->role =='Staff')
+                                    selected
+                                @endif>Staff</option>
+                            </select>
+                        </div>
+                        @else
+                        <label for="Role" class="col-sm-3 col-form-label">Sebagai</label>
+                        <div class="col-sm-1 text-right">:</div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control justify-content-center" id="Role" placeholder="Role...." name="Role" value="{{ $user_pegawai->role }}" readonly>
+                        </div>
+                        @endif
+                    </div>
                     <div class="form-group text-left">
                         <a href="{{ Route('Admin/Show') }}/{{ $user_pegawai->nip }}" class="btn btn-danger btn-md">Batal</a>
                         <button type="submit" class="btn btn-primary btn-md">Simpan</button>
