@@ -53,4 +53,9 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
     Route::delete('/Setting/dasarsurat/{id}/delete', 'SettingController@deldasarsurat');
 });
 
+Route::prefix('SPPD')->middleware('auth')->group(function(){
+    Route::get('/', 'SPPDController@index')->name('SPPD');
+    Route::get('/Entry', 'SPPDController@entry')->name('EntrySPPD');
+});
+
 Route::get('/Cetak', 'CetakController@cetak');

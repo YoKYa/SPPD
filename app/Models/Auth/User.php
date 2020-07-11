@@ -4,16 +4,19 @@ namespace App\Models\Auth;
 
 use App\Models\jabatan;
 use App\Models\Golongan;
+use App\Models\SPPD;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
     use Notifiable;
-    protected $fillable = ['nama', 'nip', 'alamat', 'password', 'tgllahir', 'golongan','jabatan','created_at','updated_at','role'];
+    protected $fillable = ['nama', 'nip', 'alamat', 'password', 'tanggal_lahir', 'golongan','jabatan','created_at','updated_at','role'];
     public function jabatan()
     {
         return $this->hasOne(Jabatan::class);
@@ -22,6 +25,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Golongan::class);
     }
+    public function sppd()
+    {
+        return $this->belongsToMany(Sppd::class,'sppd_users','sppd_id','users_id');
+    }
+
     public static function enum_get($table, $column)
     {
         $type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field='{$column}'"))[0]->Type;

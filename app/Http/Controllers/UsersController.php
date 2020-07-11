@@ -81,7 +81,7 @@ class UsersController extends Controller
                 'nip'       => $request->NIP,
                 'alamat'    => $request->Alamat,
                 'password'  => Hash::make($request->Password),
-                'tgllahir'  => $request->TglLahir,
+                'tanggal_lahir'  => $request->TglLahir,
                 'created_at' => now(),
                 'role'      => $request->Role
             ]);
@@ -150,7 +150,7 @@ class UsersController extends Controller
             'nama'      => $request->Nama,
             'nip'       => $request->NIP,
             'alamat'    => $request->Alamat,
-            'tgllahir'  => $request->TglLahir,
+            'tanggal_lahir'  => $request->TglLahir,
             'role'      => $request->Role,
             'updated_at' => now()
         ]);
@@ -217,7 +217,7 @@ class UsersController extends Controller
             'nama'      => $request->Nama,
             'nip'       => $request->NIP,
             'alamat'    => $request->Alamat,
-            'tgllahir'  => $request->TglLahir,
+            'tanggal_lahir'  => $request->TglLahir,
             'updated_at' => now()
         ]);
         $user->jabatan->update([

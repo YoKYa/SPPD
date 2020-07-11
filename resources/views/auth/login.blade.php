@@ -2,6 +2,11 @@
 
 @section('title', $path)
 @section('content')
+<style>
+    .select2-container--default .select2-selection--single {
+        border-radius: 25px;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-12 col-md-9">
@@ -36,29 +41,30 @@
                                             $('#username').select2();
                                         });
                                     </script>
-                            <div class="form-group">
-                                <input id="password" type="password"
-                                    class="form-control form-control-user @error('password') is-invalid @enderror"
-                                    name="password" required autocomplete="current-password" placeholder="Password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block"
-                                style="font-size:20px; padding-top:8px; padding-bottom:8px"> {{ __('Login') }}
-                            </button>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small btn btn-primary btn-user"
-                                    href="javascript:alert('Silahkan Hubungi Admin');"
-                                    style="border-radius:20px; padding: 5px 20px;">Lupa Password?</a>
+                                    <div class="form-group">
+                                        <input id="password" type="password"
+                                            class="form-control form-control-user @error('password') is-invalid @enderror"
+                                            name="password" required autocomplete="current-password"
+                                            placeholder="Password">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block"
+                                        style="font-size:20px; padding-top:8px; padding-bottom:8px"> {{ __('Login') }}
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small btn btn-primary btn-user"
+                                        href="javascript:alert('Silahkan Hubungi Admin');"
+                                        style="border-radius:20px; padding: 5px 20px;">Lupa Password?</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @endsection
+            @endsection

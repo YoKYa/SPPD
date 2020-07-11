@@ -27,8 +27,7 @@ class SettingController extends Controller
             }else{
                 session()->flash('Failed', '(Gagal) Set Nomor Surat');
             }
-        }
-            
+        } 
         return redirect(Route('Setting'));
         
     }

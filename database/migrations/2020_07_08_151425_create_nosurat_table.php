@@ -6,28 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateNosuratTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('nosurat', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('no_surat')->unsigned();
+        Schema::create('no_surat', function (Blueprint $table) {
+            $table->unsignedInteger('no_surat')->default(1);
             $table->year('tahun_surat');
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('nosurat');
+        Schema::dropIfExists('no_surat');
     }
 }
