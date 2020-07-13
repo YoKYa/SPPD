@@ -56,6 +56,8 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
 Route::prefix('SPPD')->middleware('auth')->group(function(){
     Route::get('/', 'SPPDController@index')->name('SPPD');
     Route::get('/Entry', 'SPPDController@entry')->name('EntrySPPD');
+    Route::post('/Entry', 'SPPDController@storeentry');
+    Route::get('/{id}', 'SPPDController@showsppd');
 });
 
 Route::get('/Cetak', 'CetakController@cetak');

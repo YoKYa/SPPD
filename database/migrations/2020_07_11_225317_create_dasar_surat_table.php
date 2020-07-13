@@ -13,7 +13,6 @@ class CreateDasarSuratTable extends Migration
             $table->unsignedInteger('sppd_id');
             $table->text('dasar_surat');
             $table->timestamps();
-
             $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
         });
     }

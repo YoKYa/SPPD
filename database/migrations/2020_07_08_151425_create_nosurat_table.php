@@ -9,6 +9,7 @@ class CreateNosuratTable extends Migration
     public function up()
     {
         Schema::create('no_surat', function (Blueprint $table) {
+            $table->integerIncrements('id');
             $table->unsignedInteger('no_surat')->default(1);
             $table->year('tahun_surat');
             $table->timestamps();

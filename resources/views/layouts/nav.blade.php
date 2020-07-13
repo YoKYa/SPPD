@@ -12,7 +12,7 @@
         aria-expanded="false" aria-controls="multiCollapse"><i class="fa fa-envelope"></i>&nbsp; SPPD</a>
     <div class="row">
         <div class="col">
-            <div class="collapse {{ request()->is('Users') ? ' show' : '' }}" id="SPPD">
+            <div class="collapse {{ request()->is('SPPD/Entry') ? ' show' : '' }}{{ request()->is('SPPD') ? ' show' : '' }}" id="SPPD">
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
                     <a class="nav-link text-left{{ request()->is('SPPD/Entry') ? ' bg-white' : ' text-white' }}"
                         href="{{ Route('EntrySPPD') }}" role="tab" aria-controls="v-pills-profile"

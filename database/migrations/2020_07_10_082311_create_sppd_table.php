@@ -16,8 +16,6 @@ class CreateSppdTable extends Migration
             $table->date('tgl_pergi');
             $table->date('tgl_kembali');
             $table->string('acara');
-            $table->string('tempat_tujuan');
-            $table->string('tempat_berangkat')->default('Surabaya');
             $table->timestamps();
         });
 

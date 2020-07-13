@@ -27,7 +27,7 @@ class User extends Authenticatable
     }
     public function sppd()
     {
-        return $this->belongsToMany(Sppd::class,'sppd_users','sppd_id','users_id');
+        return $this->belongsToMany(Sppd::class,'sppd_users','users_id','sppd_id');
     }
 
     public static function enum_get($table, $column)
