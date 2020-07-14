@@ -1,11 +1,10 @@
 <?php
 
-use Carbon\Traits\Timestamp;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSppdUsersTable extends Migration
+class CreateKabidTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,14 @@ class CreateSppdUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sppd_users', function (Blueprint $table) {
+        Schema::create('kabid', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('sppd_id');
-            $table->unsignedInteger('users_id');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->text('nama_kabid');
+            $table->text('nip');
+            $table->text('jabatan')->nullable();
+            $table->timestamps();
 
-            $table->primary(['sppd_id','users_id']);
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('NO ACTION');
             $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
         });
     }
@@ -33,6 +32,6 @@ class CreateSppdUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sppd_users');
+        Schema::dropIfExists('kabid');
     }
 }

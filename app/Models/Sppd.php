@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\DasarSurat;
+use App\Models\Kabid;
 use App\Models\Auth\User;
 use App\Tempat;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,10 @@ class Sppd extends Model
     public function tempat()
     {
         return $this->hasOne(Tempat::class,'sppd_id');
+    }
+    public function kabid()
+    {
+        return $this->hasOne(Kabid::class,'sppd_id');
     }
     public static function getSppd($id)
     {

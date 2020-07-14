@@ -69,7 +69,10 @@
                                     @endforeach
                                 </td>
                                 <td> 
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}"class="btn btn-primary" style="font-size: 12px">Lihat</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPPD</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/edit"class="btn btn-info" style="font-size: 12px">Lengkapi Data</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a>
                             <?php $no++;?>
                             @endforeach 
                         </tbody>

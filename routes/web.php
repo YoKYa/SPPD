@@ -57,7 +57,11 @@ Route::prefix('SPPD')->middleware('auth')->group(function(){
     Route::get('/', 'SPPDController@index')->name('SPPD');
     Route::get('/Entry', 'SPPDController@entry')->name('EntrySPPD');
     Route::post('/Entry', 'SPPDController@storeentry');
-    Route::get('/{id}', 'SPPDController@showsppd');
+    Route::get('{id}/add', 'SPPDController@addfollower');
+    Route::post('{id}/add', 'SPPDController@storeaddfollower');
+    Route::get('{id}/SPT/', 'SPPDController@showsppd');
+    Route::get('{id}/edit', 'SPPDController@editsppd');
+    Route::delete('{sppd_id}/{users_id}/delete', 'SPPDController@removefollower');
 });
 
 Route::get('/Cetak', 'CetakController@cetak');
