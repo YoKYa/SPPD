@@ -26,7 +26,7 @@
                     {{ session()->get('Success') }}
                 </div>
                 @endif
-                <h3 class="text-center">Edit SPPD</h3>
+                <h3 class="text-center">LENGKAPI SPPD</h3>
                 <br>
                 <div class="tab-content bg-light rounded-lg shadow p-4 mb-3" id="v-pills-tabContent">
                     <h5>Nomor dan Tahun Surat</h5>

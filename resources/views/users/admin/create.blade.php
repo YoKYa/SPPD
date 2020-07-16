@@ -39,17 +39,10 @@
                     </div>
                     <hr>
                     <div class="form-group row d-flex align-items-center">
-                        <label for="Nama" class="col-sm-3 col-form-label">Nama Lengkap<span class="text-danger">*</span></label>
+                        <label for="Nama" class="col-sm-3 col-form-label">Nama Lengkap<span class="text-danger">*</span><div class="small">(Nama Pakai Huruf Besar)</div></label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">
                             <input type="text" class="form-control justify-content-center @error('Nama') is-invalid @enderror" id="Nama" placeholder="Ketik Nama Lengkap..." name="Nama" value="{{ old('Nama') }}">
-                        </div>
-                    </div>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Gelar" class="col-sm-3 col-form-label">Gelar</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control justify-content-center" id="Gelar" placeholder="Ketik Gelar..." name="Gelar" value="{{ old('Gelar') }}">
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">

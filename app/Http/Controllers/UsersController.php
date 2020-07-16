@@ -68,16 +68,9 @@ class UsersController extends Controller
         ]);
         $Cek = User::select('nip')->where('nip', $request->NIP)->count();
 
-        // Name Check
-        if ($request->Gelar == null) {
-            $Nama = $request->Nama;
-        } else {
-            $Nama = $request->Nama . ', ' . $request->Gelar;
-        }
-
         if ($Cek != True) {
             User::create([
-                'nama'      => $Nama,
+                'nama'      => $request->Nama,
                 'nip'       => $request->NIP,
                 'alamat'    => $request->Alamat,
                 'password'  => Hash::make($request->Password),

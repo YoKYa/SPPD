@@ -29,14 +29,9 @@
                 @endif
                 
                 <div class="tab-pane fade table-responsive active show" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-                    <h3 class="text-center">Daftar SPPD</h3>
+                    <h3 class="text-center">Daftar SPPD (Admin)</h3>
                     <hr>
-                    <div class="d-flex justify-content-between mb-3">
-                        <form class="active-cyan-4 col-5 d-flex mb-1" action="{{ Route('SPPD') }}" method="GET">
-                            <input class="form-control col-9" type="text" placeholder="Cari Nomor Surat atau Acara"
-                            aria-label="Search" name="search" value="{{ request()->search }}">&nbsp;
-                            <button type="submit" class="btn btn-primary col-3"><i class="fa fa-search"></i></button>
-                        </form>
+                    <div class="d-flex justify-content-center mb-3">
                         <a class="btn btn-primary mb-1" style="font-size: 14px" href="{{ Route('EntrySPPD') }}">
                             <i class="fa fa-envelope"></i>&nbsp;
                             Tambah SPPD
@@ -56,24 +51,44 @@
                         </thead>
                         <tbody>
                             <?php $no = $sppd->currentPage()*$sppd->perPage()-4; ?>
-                            @foreach ($sppd as $sppd_data)
+                            @foreach ($sppd as $data)
+                                @foreach ($data->sppd()->get() as $item)
+                                <tr>
+                                    <th>{{ $no++ }}</th>
+                                    <td>{{ $item->no_surat }}</td>
+                                    <td>{{ $item->acara }}</td>
+                                    <td>
+                                        <?php $no1=1; ?>
+                                        @foreach ($item->user as $user)
+                                        <div>{{ $no1++ }}. {{ Str::limit($user->nama,20,'...') }}</div>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <a href="{{ Route('SPPD') }}/{{ $item->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            
+                            @endforeach
+                            {{-- @foreach ($sppd as $sppd_data)
                             <tr>
                                 <th>{{ $no }}</th>
                                 <td>{{ $sppd_data->no_surat }}</td>
-                                <?php $num_char=50;  ?>
+                                <?php //$num_char=50;  ?>
                                 <td>{{  Str::limit($sppd_data->acara, 20, '...')  }}</td>
                                 <td>
-                                    <?php $no1=1; ?>
+                                    <?php //$no1=1; ?>
                                     @foreach ($sppd_data->user as $us)
                                         <div>{{ $no1++ }}. {{ Str::limit($us->nama,20,'...') }}</div>
                                     @endforeach
                                 </td>
                                 <td> 
                                     <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPPD</a>  
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a>
-                            <?php $no++;?>
-                            @endforeach 
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPPD</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/edit"class="btn btn-info" style="font-size: 12px">Lengkapi Data</a>
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a> --}}
+                            <?php //$no++;?>
+                            {{-- @endforeach  --}}
                         </tbody>
                     </table>
                     {{ $sppd->render() }}

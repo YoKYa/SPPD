@@ -51,6 +51,8 @@ Route::prefix('Admin')->middleware('auth')->group(function(){
     Route::get('/Setting/dasarsurat/{id}/edit', 'SettingController@editdasarsurat');
     Route::patch('/Setting/dasarsurat/{id}/edit', 'SettingController@storeeditdasarsurat');
     Route::delete('/Setting/dasarsurat/{id}/delete', 'SettingController@deldasarsurat');
+
+    Route::get('/SPPD', 'AdminController@datasppd')->name('AdminSPPD');
 });
 
 Route::prefix('SPPD')->middleware('auth')->group(function(){
@@ -64,4 +66,7 @@ Route::prefix('SPPD')->middleware('auth')->group(function(){
     Route::delete('{sppd_id}/{users_id}/delete', 'SPPDController@removefollower');
 });
 
-Route::get('/Cetak', 'CetakController@cetak');
+Route::prefix('Cetak')->middleware('auth')->group(function(){
+    Route::get('/SPT', 'CetakController@index')->name('CetakSPT');
+    Route::get('/SPT/{id}', 'CetakController@SPT');
+});

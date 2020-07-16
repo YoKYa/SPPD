@@ -36,6 +36,12 @@
                     {{ session()->get('Failed') }}
                 </div>
                 @endif
+                <div class="col-12">
+                    <a href="{{ Route('SPPD') }}/{{ $sppd->id }}/SPT" class="btn btn-primary mb-3">
+                        <i class="fa fa-arrow-circle-left"> </i>
+                        &nbsp;&nbsp;Kembali SPT
+                    </a>
+                </div>
                 <div class="tab-content bg-light rounded-lg shadow p-4 mb-5 col-12" id="v-pills-tabContent">
                     <div class="row justify-content-start">
                         <h4 class="col-12 text-center">Tambah Pengikut - SPPD ( Nomor Surat - {{ $sppd->no_surat }} )</h4>

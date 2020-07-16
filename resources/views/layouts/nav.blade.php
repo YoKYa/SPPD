@@ -51,7 +51,7 @@
                     </a>
                 </div>
                 <div class="card border-succes ml-lg-5 bg-primary mb-2">
-                    <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}" href=""
+                    <a class="nav-link text-left{{ request()->is('Users') ? ' bg-white' : ' text-white' }}" href="{{ Route('AdminSPPD') }}"
                         role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <i class="fa fa-envelope"></i>
                         &nbsp; Data SPPD

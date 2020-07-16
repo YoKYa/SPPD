@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Tempat;
-use App\DasarSurat;
+use App\Models\Tempat;
+use App\Models\DasarSurat;
 use App\Models\Kabid;
 use App\Models\Sppd;
 use App\Models\Dasar;
@@ -93,23 +93,17 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
-        $sppduser = Sppd_user::orderBy('created_at', 'ASC')->where('sppd_id', $id)->get();
-        $sppduserpegawai = User::select()->get();
         if ($this->CekUserSppd($user,$sppd)) {
             $sppd = $sppd->first();
             $sppd->update([
                 'tgl_surat'=> now()
             ]);
-            $tgl_pergi = date('d-m-Y',strtotime($sppd->tgl_pergi));
-            $tgl_kembali = date('d-m-Y',strtotime($sppd->tgl_kembali));
-            $lama = $this->selisih($tgl_pergi,$tgl_kembali);
-            $tgl_pergi = date('d-m-Y',strtotime($sppd->tgl_pergi));
-            return view('sppd.users.spt',compact('user','sppd','lama','sppduser','sppduserpegawai'));
+            return view('sppd.users.spt',compact('user','sppd'));
         }else {
             return view('sppd.users.akses',compact('user'));
         }
     }
-    public function CekUserSppd($id_user, $id_sppd)
+    public static function CekUserSppd($id_user, $id_sppd)
     {
         foreach ($id_sppd as $sppd_data ) {
             foreach ($sppd_data->user as $user) {
@@ -125,48 +119,13 @@ class SPPDController extends Controller
         $sppd = Sppd::getSppd($id);
         if ($this->CekUserSppd($user,$sppd)) {
             $sppd = $sppd->first();
-            $lama = $this->selisih($sppd->tgl_pergi,$sppd->tgl_pergi);
+            $lama = Sppd::selisih($sppd->tgl_pergi,$sppd->tgl_pergi);
             return view('sppd.users.edit',compact('user','sppd','lama'));
         }else {
             return view('sppd.users.akses',compact('user'));
         }
     }
-    public function selisih($awal, $akhir)
-    {
-        $awal = date_create($awal);
-        $akhir = date_create($akhir);
-        $diff  = date_diff( $awal, $akhir );
-        $angka = $diff->d+1;
-        return $angka." "."( ".$this->penyebut($angka)." )";
-    }
-    public static function penyebut($angka)
-    {
-        $angka = abs($angka);
-        $huruf = array('','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan','sepuluh','sebelas');
-        $temp  = '';
-        if ($angka < 12) {
-            $temp = ' '.$huruf[$angka];
-        }elseif ($angka < 20) {
-            $temp = $this->penyebut($angka-10). " belas";
-        }elseif ($angka < 100) {
-            $temp = $this->penyebut($angka/10). " puluh".$this->penyebut($angka % 10);
-        }elseif ($angka < 200) {
-            $temp = " seratus".$this->penyebut($angka-100);
-        }elseif ($angka < 1000) {
-            $temp = $this->penyebut($angka/100).' ratus'.$this->penyebut($angka%100);
-        }elseif ($angka < 2000) {
-            $temp = ' seribu'.$this->penyebut($angka-1000);
-        }elseif ($angka < 1000000) {
-            $temp = $this->penyebut($angka/1000). ' ribu'.$this->penyebut($angka%1000);
-        }elseif ($angka < 1000000000) {
-            $temp = $this->penyebut($angka/1000000). ' juta'.$this->penyebut($angka%1000000);
-        }elseif ($angka < 1000000000000) {
-            $temp = $this->penyebut($angka/1000000000). ' miliar'.$this->penyebut(fmod($angka,1000000000));
-        }elseif ($angka < 1000000000000000) {
-            $temp = $this->penyebut($angka/1000000000000). ' triliun'.$this->penyebut(fmod($angka,1000000000000));
-        }
-        return $temp;
-    }
+    
     public function addfollower($id)
     {
         $user = User::getUser();
