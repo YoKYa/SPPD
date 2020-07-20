@@ -3,6 +3,7 @@
 use App\Models\Jabatan;
 use App\Models\Golongan;
 use App\Models\Auth\User;
+use App\Models\Eselon;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -55,6 +56,9 @@ class UsersTableSeeder extends Seeder
                 'user_id' => $data
             ]);
             Golongan::create([
+                'user_id' => $data
+            ]);
+            Eselon::create([
                 'user_id' => $data
             ]);
         });

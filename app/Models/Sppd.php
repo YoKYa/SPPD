@@ -29,10 +29,15 @@ class Sppd extends Model
     {
         return $this->hasOne(Kabid::class,'sppd_id');
     }
+    public function sppd_user()
+    {
+        return $this->hasMany(Sppd_user::class,'sppd_id');
+    }
     public static function getSppd($id)
     {
         return Sppd::get()->where('id', $id);
     }
+
     public static function CekUserSppd($id_user, $id_sppd)
     {
         foreach ($id_sppd as $sppd_data ) {

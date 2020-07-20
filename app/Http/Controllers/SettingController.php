@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bidang;
 use App\Models\Auth\User;
 use App\Models\Dasar;
 use App\Models\Nosurat;
@@ -13,7 +14,9 @@ class SettingController extends Controller
     public function index()
     {
         $surat = Nosurat::select('*')->first();
-        return view('users.admin.setting.setting', ['user' => User::getUser()], ['surat'=>$surat]);
+        $bidang = Bidang::first();
+        $user = User::getUser();
+        return view('users.admin.setting.setting', compact('surat','bidang','user'));
     }
     public function setnomorsurat(Request $request)
     {
@@ -89,5 +92,17 @@ class SettingController extends Controller
         ]);
         session()->flash('Success', '(Berhasil) Menambah Dasar');
         return Redirect(Route('DasarSurat'));
+    }
+    public function SetBidang(Request $request)
+    {
+        if ($request->Nama_Bidang == null) {
+            session()->flash('Failed', '(Gagal) Edit');
+        }else{
+            Bidang::first()->update([
+                'nama_bidang' => $request->Nama_Bidang
+            ]);
+            session()->flash('Success', '(Berhasil) Edit Nama Bidang');
+        }
+        return back();
     }
 }

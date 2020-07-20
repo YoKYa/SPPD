@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Auth\User;
+use App\Models\Eselon;
 use App\Models\Golongan;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -55,7 +56,9 @@ class UsersController extends Controller
     public function create()
     {
         $golongan = User::enum_get('golongan', 'golongan');
-        return view('users.admin.create', ['golongan' => $golongan], ['user' => User::getUser()]);
+        $eselon = User::enum_get('eselon', 'nama_eselon');
+        $user = User::getUser();
+        return view('users.admin.create', compact('golongan','eselon','user'));
     }
     public function store(Request $request)
     {
@@ -64,7 +67,6 @@ class UsersController extends Controller
             'NIP'       =>  'required|min:10|numeric',
             'Password'  =>  'required|min:5',
             'Role'      =>  'required|numeric'
-
         ]);
         $Cek = User::select('nip')->where('nip', $request->NIP)->count();
 
@@ -87,6 +89,10 @@ class UsersController extends Controller
                 'user_id' => $user_temp->id,
                 'golongan' => $request->Golongan
             ]);
+            Eselon::create([
+                'user_id' => $user_temp->id,
+                'golongan' => $request->Eselon
+            ]);
             session()->flash('Success', 'Berhasil Membuat User');
         } else {
             session()->flash('Failed', 'Gagal Membuat User (NIP Sudah Dipakai)');
@@ -96,7 +102,8 @@ class UsersController extends Controller
     public function showuser($nip)
     {
         $user_pegawai = User::select('*')->where('nip', $nip)->first();
-        return view('users.admin.profile', ['user' => User::getUser()], ['user_pegawai' => $user_pegawai]);
+        $user = User::getUser();
+        return view('users.admin.profile', compact('user','user_pegawai'));
     }
     public function changepass($nip)
     {
@@ -129,7 +136,9 @@ class UsersController extends Controller
     {
         $user_pegawai = User::select('*')->where('nip', $nip)->first();
         $golongan = User::enum_get('golongan', 'golongan');
-        return view('users.admin.edit', ['user' => User::getUser(), 'golongan' => $golongan], ['user_pegawai' => $user_pegawai]);
+        $eselon = User::enum_get('eselon', 'nama_eselon');
+        $user = User::getUser();
+        return view('users.admin.edit', compact('user_pegawai','golongan','eselon','user'));
     }
     public function storeedituser(Request $request, $nip)
     {
@@ -153,12 +162,18 @@ class UsersController extends Controller
         $user->golongan->update([
             'golongan' => $request->Golongan
         ]);
+        $user->eselon->update([
+            'nama_eselon' => $request->Eselon
+        ]);
         session()->flash('Success', '(Berhasil) Update User ' . $user_pegawai->nama);
         return redirect(Route('Admin/Show'));
     }
     public function deluser($nip)
     {
         $user_pegawai = User::select('*')->where('nip', $nip)->first();
+        $user_pegawai->update([
+            'role' => 4
+        ]);
         $this->destroy($user_pegawai);
         session()->flash('Success', 'Berhasil Menghapus User');
         return Redirect(Route('Admin/Show'));
@@ -197,7 +212,9 @@ class UsersController extends Controller
     public function showedit()
     {
         $golongan = User::enum_get('golongan', 'golongan');
-        return view('users.profile.edit', ['user' => User::getUser(), 'golongan' => $golongan]);
+        $eselon = User::enum_get('eselon', 'nama_eselon');
+        $user = User::getUser();
+        return view('users.profile.edit', compact('golongan','eselon','user'));
     }
     public function storeedit(Request $request)
     {
@@ -218,6 +235,9 @@ class UsersController extends Controller
         ]);
         $user->golongan->update([
             'golongan' => $request->Golongan
+        ]);
+        $user->eselon->update([
+            'nama_eselon' => $request->Eselon
         ]);
         session()->flash('Success', '(Berhasil) Update Profil');
         return redirect(Route('Dashboard'));

@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">Total SPPD </div>
                                     <div class="col-sm-1">:</div>
-                                    <div class="col-sm-5 text-left"></div>
+                                    <div class="col-sm-5 text-left">{{ $user->sppd->count() }}</div>
                                 </div>
                                 <hr>
                                 <a href="#" class="btn btn-primary btn-block">Lihat Selengkapnya</a>

@@ -63,6 +63,13 @@
                     </div>
                 </div>
                 <div class="form-group row d-flex align-items-center">
+                    <label for="Eselon" class="col-sm-3 col-form-label">Eselon</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control justify-content-center" id="Eselon" readonly placeholder="Eselon..." name="Eselon" value="{{ $user->eselon->nama_eselon }}">
+                    </div>
+                </div>
+                <div class="form-group row d-flex align-items-center">
                     <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">

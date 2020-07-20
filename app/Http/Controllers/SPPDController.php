@@ -20,7 +20,11 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         if ($request->search) {
-            $sppd = $user->sppd()->orderBy('id', 'desc')->where('acara', 'LIKE', '%' . $request->search . '%')->orwhere('no_surat', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            if ($request->search>= 1) {
+                $sppd = $user->sppd()->orderBy('id', 'desc')->where('no_surat', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            }else {
+                $sppd = $user->sppd()->orderBy('id', 'desc')->where('acara', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            }
         } else {
             $sppd = $user->sppd()->orderBy('id', 'desc')->paginate(5);
         }
@@ -89,7 +93,7 @@ class SPPDController extends Controller
         $nosurat = $surat->no_surat + 1;
         $surat->update(['no_surat' => $nosurat]);
     }
-    public function showsppd($id)
+    public function showspt($id)
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
@@ -99,6 +103,20 @@ class SPPDController extends Controller
                 'tgl_surat'=> now()
             ]);
             return view('sppd.users.spt',compact('user','sppd'));
+        }else {
+            return view('sppd.users.akses',compact('user'));
+        }
+    }
+    public function showsppd($id)
+    {
+        $user = User::getUser();
+        $sppd = Sppd::getSppd($id);
+        if ($this->CekUserSppd($user,$sppd)) {
+            $sppd = $sppd->first();
+            $sppd->update([
+                'tgl_surat'=> now()
+            ]);
+            return view('sppd.users.sppdoption',compact('user','sppd'));
         }else {
             return view('sppd.users.akses',compact('user'));
         }
@@ -158,5 +176,17 @@ class SPPDController extends Controller
         Sppd_user::select()->where('sppd_id', $sppd_id)->where('users_id',$users_id)->delete();
         session()->flash('Success', 'Berhasil Menghapus Pengikut');
         return back();
+    }
+    public function angkutan($id)
+    {
+        $user = User::getUser();
+        $sppd = Sppd::getSppd($id);
+        if ($this->CekUserSppd($user,$sppd)) {
+            $tempatb = User::enum_get('tempat', 'tempat_berangkat');
+            $sppd = $sppd->first();
+            return view('sppd.users.angkutan',compact('user','sppd','tempatb'));
+        }else {
+            return view('sppd.users.akses',compact('user'));
+        }
     }
 }

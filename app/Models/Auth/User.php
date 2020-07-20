@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Eselon;
 use App\Models\jabatan;
 use App\Models\Golongan;
 use App\Models\SPPD;
@@ -24,6 +25,10 @@ class User extends Authenticatable
     public function golongan()
     {
         return $this->hasOne(Golongan::class);
+    }
+    public function eselon()
+    {
+        return $this->hasOne(Eselon::class);
     }
     public function sppd()
     {

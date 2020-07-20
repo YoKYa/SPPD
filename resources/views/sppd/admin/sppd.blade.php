@@ -51,8 +51,7 @@
                         </thead>
                         <tbody>
                             <?php $no = $sppd->currentPage()*$sppd->perPage()-4; ?>
-                            @foreach ($sppd as $data)
-                                @foreach ($data->sppd()->get() as $item)
+                            @foreach ($sppd as $item)
                                 <tr>
                                     <th>{{ $no++ }}</th>
                                     <td>{{ $item->no_surat }}</td>
@@ -67,7 +66,6 @@
                                         <a href="{{ Route('SPPD') }}/{{ $item->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
                                     </td>
                                 </tr>
-                                @endforeach
                             
                             @endforeach
                             {{-- @foreach ($sppd as $sppd_data)

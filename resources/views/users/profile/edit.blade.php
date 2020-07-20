@@ -66,6 +66,20 @@
                         </div>
                     </div>
                     <div class="form-group row d-flex align-items-center">
+                        <label for="Eselon" class="col-sm-3 col-form-label">Eselon</label>
+                        <div class="col-sm-1 text-right">:</div>
+                        <div class="col-sm-8">
+                            <select class="custom-select" id="Eselon" name="Eselon">
+                                <option selected disabled>Pilih...</option>
+                                <?php $no = 1; ?>
+                                @foreach ($eselon as $eselo)
+                                <option value="{{ $no }}" @if ($user->eselon->nama_eselon == $eselo) selected @endif>{{ $eselo }}</option>
+                                <?php $no++; ?>
+                                @endforeach
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-group row d-flex align-items-center">
                         <label for="Jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                         <div class="col-sm-1 text-right">:</div>
                         <div class="col-sm-8">

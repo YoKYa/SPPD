@@ -50,12 +50,22 @@
                     <button type="submit" class="btn btn-primary btn-md">Simpan</button>
                 </form>
                 <div class="form-group row d-flex align-items-center">
-                    <label for="Password" class="col-sm-3 col-form-label">Dasar SPPD</label>
+                    <label for="DasarSPPD" class="col-sm-3 col-form-label">Dasar SPPD</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
-                        <a href="{{ Route('DasarSurat') }}" class="btn btn-primary" id="Password" placeholder=" Password..." name="Password" readonly> Ganti Dasar SPPD</a>
+                        <a href="{{ Route('DasarSurat') }}" class="btn btn-primary" id="DasarSPPD" placeholder=" Password..." name="Password" readonly> Ganti Dasar SPPD</a>
                     </div>
                 </div>
+                <form action="{{ Route('SetBidang') }}" method="post" class="form-group row d-flex align-items-center">
+                    @method('patch')
+                    @csrf
+                    <label for="Bidang" class="col-sm-3 col-form-label">Set Bidang</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control justify-content-center" id="Bidang" placeholder="Nama Bidang" name="Nama_Bidang" value="{{ old('Nama_Bidang') ?? $bidang->nama_bidang }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-md">Simpan</button>
+                </form>
             </div>
             
         </div>

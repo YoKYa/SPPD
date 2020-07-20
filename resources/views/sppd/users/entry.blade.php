@@ -152,18 +152,7 @@
 <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 @endsection
 
-{{-- <div class="form-group row d-flex align-items-center">
-                        <label for="Kendaraan" class="col-sm-4 col-form-label">Alat Transportasi</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <select class="form-control form-control-md" id="Kendaraan">
-                                <option>Pilih Alat Transportasi ...</option>
-                                <option>Kendaraan Umum</option>
-                                <option>Kendaraan Dinas</option>
-                                <option>Kendaraan Sewa</option>
-                            </select>
-                        </div>
-                    </div> 
+{{-- 
                     <br>
                     <div class="form-group row d-flex align-items-center">
                         <label for="Instansi" class="col-sm-4 col-form-label">Instansi</label>

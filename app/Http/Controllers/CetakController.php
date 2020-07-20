@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sppd;
+use App\Models\Bidang;
+use App\Models\Eselon;
 use App\Models\Auth\User;
 use App\Models\Sppd_user;
 use Illuminate\Http\Request;
@@ -29,7 +31,29 @@ class CetakController extends Controller
             $tgl_kembali = date('d-m-Y',strtotime($sppd->tgl_kembali));
             $lama = Sppd::selisih($tgl_pergi,$tgl_kembali);
             $tgl_pergi = date('d-m-Y',strtotime($sppd->tgl_pergi));
-            return view('cetak.spt',compact('user','sppd','lama','sppduser','sppduserpegawai'));
+            $bidang = Bidang::first();
+            return view('cetak.spt',compact('user','sppd','lama','sppduser','sppduserpegawai','bidang'));
+        }else {
+            return view('sppd.users.akses',compact('user'));
+        }
+    }
+    public function SPPD($id)
+    {
+        $user = User::getUser();
+        $sppd = Sppd::getSppd($id);
+        $sppduser = Sppd_user::orderBy('created_at', 'ASC')->where('sppd_id', $id)->get();
+        $sppduserpegawai = User::select()->get();
+        if (Sppd::CekUserSppd($user,$sppd)) {
+            $sppd = $sppd->first();
+            $sppd->update([
+                'tgl_surat'=> now()
+            ]);
+            $tgl_pergi = date('d-m-Y',strtotime($sppd->tgl_pergi));
+            $tgl_kembali = date('d-m-Y',strtotime($sppd->tgl_kembali));
+            $lama = Sppd::selisih($tgl_pergi,$tgl_kembali);
+            $tgl_pergi = date('d-m-Y',strtotime($sppd->tgl_pergi));
+            $bidang = Bidang::first();
+            return view('cetak.sppd',compact('user','sppd','lama','sppduser','sppduserpegawai','bidang'));
         }else {
             return view('sppd.users.akses',compact('user'));
         }

@@ -57,6 +57,7 @@
                         <tbody>
                             <?php $no = $sppd->currentPage()*$sppd->perPage()-4; ?>
                             @foreach ($sppd as $sppd_data)
+                            
                             <tr>
                                 <th>{{ $no }}</th>
                                 <td>{{ $sppd_data->no_surat }}</td>
@@ -70,7 +71,7 @@
                                 </td>
                                 <td> 
                                     <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPPD</a>  
+                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPPD"class="btn btn-primary" style="font-size: 12px">SPPD</a>  
                                     <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a>
                             <?php $no++;?>
                             @endforeach 
