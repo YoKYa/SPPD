@@ -56,87 +56,113 @@
                         <hr class="d-flex row col-12">
                         {{-- Kendaraan --}}
                         <div class="col-12">
-                            <form class="form-group row d-flex align-items-center">
+                            <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/angkutan" method="POST">
+                                @method('patch')
+                                @csrf
                                 <label for="Angkutan" class="col-sm-3 col-form-label">Alat Angkutan</label>
                                 <div class="col-sm-1 text-right">:</div>
                                 <div class="col-sm-6">
-                                    <select class="form-control form-control-md" id="Angkutan">
+                                    <select class="form-control form-control-md" id="Angkutan" name="Angkutan">
+                                        <?php $c = 1; ?>
                                         <option disabled selected>Pilih Alat Angkutan ...</option>
-                                        <option>Angkutan Dinas</option>
-                                        <option>Angkutan Pribadi</option>
-                                        <option>Angkutan Umum</option>
-                                        <option>Angkutan Sewa</option>
+                                        <option value="<?=$c++?>" @if ($sppd->angkutan->angkutan == "Angkutan Dinas") selected @endif>Angkutan Dinas</option>
+                                        <option value="<?=$c++?>" @if ($sppd->angkutan->angkutan == "Angkutan Pribadi") selected @endif>Angkutan Pribadi</option>
+                                        <option value="<?=$c++?>" @if ($sppd->angkutan->angkutan == "Angkutan Umum") selected @endif>Angkutan Umum</option>
+                                        <option value="<?=$c++?>" @if ($sppd->angkutan->angkutan == "Angkutan Sewa") selected @endif>Angkutan Sewa</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="col-2 btn btn-primary">Simpan</button>
                             </form> 
                         </div>
-                        {{-- Jenis angkutan --}}
-                        <div class="col-12">
-                            <form class="form-group row d-flex align-items-center">
-                                <label for="Kendaraan" class="col-sm-3 col-form-label">Jenis Kendaraan</label>
-                                <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
-                                    <select class="form-control form-control-md" id="Kendaraan">
-                                        <option disabled selected>Pilih Jenis Kendaraan ...</option>
-                                        <option>Roda Dua</option>
-                                        <option>Roda Empat</option>
-                                    </select>
+                        @if ($sppd->angkutan->angkutan == 'Angkutan Dinas'|| $sppd->angkutan->angkutan == 'Angkutan Pribadi')
+                            {{-- Jenis Kendaraan --}}
+                            <div class="col-12">
+                                <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/jenis" method="POST">
+                                    @method('patch')
+                                    @csrf
+                                    <label for="Kendaraan" class="col-sm-3 col-form-label">Jenis Kendaraan</label>
+                                    <div class="col-sm-1 text-right">:</div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control form-control-md" id="Kendaraan" name="Jenis">
+                                            <?php $d=1; ?>
+                                            <option disabled selected>Pilih Jenis Kendaraan ...</option>
+                                            <option value="<?=$d++?>" @if ($sppd->angkutan->jenis == "Roda Dua") selected @endif>Roda Dua</option>
+                                            <option value="<?=$d++?>" @if ($sppd->angkutan->jenis == "Roda Empat") selected @endif>Roda Empat</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="col-2 btn btn-primary">Simpan</button>
+                                </form> 
+                            </div>
+                            @if ( !($sppd->angkutan->jenis == null) )
+                                {{-- Plat Nomor --}}
+                                <div class="col-12">
+                                    <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/plat" method="POST">
+                                        @method('patch')
+                                        @csrf
+                                        <label for="PlatNomor" class="col-sm-3 col-form-label">Plat Nomor</label>
+                                        <div class="col-sm-1 text-right">:</div>
+                                        <div class="col-sm-6">
+                                            <input class="form-control form-control-md" id="PlatNomor" type="text" placeholder="Plat Nomor" name="Plat" value="{{ $sppd->angkutan->plat }}">
+                                        </div>
+                                        <button type="submit" class="col-2 btn btn-primary">Simpan</button>
+                                    </form> 
                                 </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
-                        </div>
-                        {{-- Plat Nomor --}}
-                        <div class="col-12">
-                            <form class="form-group row d-flex align-items-center">
-                                <label for="PlatNomor" class="col-sm-3 col-form-label">Plat Nomor</label>
-                                <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
-                                    <input class="form-control form-control-md" id="PlatNomor" type="text" placeholder="Plat Nomor">
-                                </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
-                        </div>
-                        {{-- Angkutan Umum --}}
-                        <div class="col-12">
-                            <form class="form-group row d-flex align-items-center">
-                                <label for="AngkutanUmum" class="col-sm-3 col-form-label">Angkutan Umum</label>
-                                <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
-                                    <select class="form-control form-control-md" id="AngkutanUmum">
-                                        <option disabled selected>Pilih Alat Angkutan Umum ...</option>
-                                        <option>Pesawat</option>
-                                        <option>Kereta</option>
-                                        <option>Kapal</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
-                        </div>
-                        {{-- Sewa Kendaraan --}}
-                        <div class="col-12">
-                            <form class="form-group row d-flex align-items-center">
-                                <label for="Sewa" class="col-sm-3 col-form-label">Sewa</label>
-                                <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
-                                    <select class="form-control form-control-md" id="Sewa">
-                                        <option disabled selected>Pilih Alat Angkutan Yang Disewa ...</option>
-                                        <option>Roda Enam/Bus Besar</option>
-                                        <option>Roda Enam/Bus Sedang</option>
-                                        <option>Roda Empat/Bus Mini</option>
-                                        <option>Roda Empat</option>
-                                        @if ($dd == 1)
-                                        <option>Roda Dua</option>
-                                        @endif
-                                    </select>
-                                </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
-                        </div>
-
-                    </div>
-                    <div class="row justify-content-start">
-                        
+                            @endif
+                        @endif    
+                        @if ($sppd->angkutan->angkutan == "Angkutan Umum")
+                            {{-- Angkutan Umum --}}
+                            <div class="col-12">
+                                <form class="form-group row d-flex align-items-center" method="POST" action="{{ Route('SPPD') }}/{{ $sppd->id }}/umum">
+                                    @method('patch')
+                                    @csrf
+                                    <label for="AngkutanUmum" class="col-sm-3 col-form-label">Angkutan Umum</label>
+                                    <div class="col-sm-1 text-right">:</div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control form-control-md" id="AngkutanUmum" name="Umum">
+                                            <option disabled selected>Pilih Alat Angkutan Umum ...</option>
+                                            <?php $d = 1; ?>
+                                            <option value="<?=$d++?>" @if ($sppd->angkutan->angkutan_umum == "Pesawat") selected                                           
+                                            @endif>Pesawat</option>
+                                            <option value="<?=$d++?>" @if ($sppd->angkutan->angkutan_umum == "Kereta") selected                                           
+                                            @endif>Kereta</option>
+                                            <option value="<?=$d++?>" @if ($sppd->angkutan->angkutan_umum == "Kapal") selected                                           
+                                            @endif>Kapal</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="col-2 btn btn-primary">Simpan</button>
+                                </form> 
+                            </div>
+                        @endif
+                        @if ($sppd->angkutan->angkutan == "Angkutan Sewa")
+                            {{-- Sewa Kendaraan --}}
+                            <div class="col-12">
+                                <form class="form-group row d-flex align-items-center" method="POST" action="{{ Route('SPPD') }}/{{ $sppd->id }}/sewa">
+                                    @method('patch')
+                                    @csrf
+                                    <label for="Sewa" class="col-sm-3 col-form-label">Sewa</label>
+                                    <div class="col-sm-1 text-right">:</div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control form-control-md" id="Sewa" name="Sewa">
+                                            <?php $e = 1; ?>
+                                            <option disabled selected>Pilih Alat Angkutan Yang Disewa ...</option>
+                                            <option value="<?=$e++?>" @if ($sppd->angkutan->sewa == "Roda Enam/Bus Besar") selected                                           
+                                            @endif>Roda Enam/Bus Besar</option>
+                                            <option value="<?=$e++?>" @if ($sppd->angkutan->sewa == "Roda Enam/Bus Sedang") selected                                           
+                                            @endif>Roda Enam/Bus Sedang</option>
+                                            <option value="<?=$e++?>" @if ($sppd->angkutan->sewa == "Roda Empat/Bus Mini") selected                                           
+                                            @endif>Roda Empat/Bus Mini</option>
+                                            <option value="<?=$e++?>" @if ($sppd->angkutan->sewa == "Roda Empat") selected                                           
+                                            @endif>Roda Empat</option>
+                                            @if ($dd == 1)
+                                            <option value="<?=$e++?>" @if ($sppd->angkutan->sewa == "Roda Dua") selected                                           
+                                            @endif>Roda Dua</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="col-2 btn btn-primary">Simpan</button>
+                                </form> 
+                            </div>    
+                        @endif
                     </div>
                 </div>
             </div>

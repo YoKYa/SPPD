@@ -31,8 +31,12 @@
                         <h4>Surat Perintah Perjalanan Dinas</h4>
                         <hr>
                         <div class="d-flex justify-content-center">
+                            <a href="{{ Route('CetakSPT') }}/{{ $sppd->id }}" target="_blank"class="btn-lg btn-block btn-info shadow-sm mb-2"
+                                style="font-weight: 600; text-decoration:none;">Cetak SPT</a>
+                        </div>
+                        <div class="d-flex justify-content-center">
                             <a href="{{ Route('CetakSPPD') }}/{{ $sppd->id }}" target="_blank"  class="btn-lg btn-info shadow-sm mb-2 col-12 m-1"
-                                style="font-weight: 600; text-decoration:none">Cetak</a>
+                                style="font-weight: 600; text-decoration:none">Cetak SPPD</a>
                         </div>
                         <div class="d-flex justify-content-center">
                             <a href="{{ Route('SPPD') }}/{{$sppd->id}}/add"

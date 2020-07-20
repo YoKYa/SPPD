@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Angkutan;
 use App\Models\Tempat;
 use App\Models\DasarSurat;
 use App\Models\Kabid;
@@ -20,15 +21,15 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         if ($request->search) {
-            if ($request->search>= 1) {
+            if ($request->search >= 1) {
                 $sppd = $user->sppd()->orderBy('id', 'desc')->where('no_surat', 'LIKE', '%' . $request->search . '%')->paginate(5);
-            }else {
+            } else {
                 $sppd = $user->sppd()->orderBy('id', 'desc')->where('acara', 'LIKE', '%' . $request->search . '%')->paginate(5);
             }
         } else {
             $sppd = $user->sppd()->orderBy('id', 'desc')->paginate(5);
         }
-        return view('sppd.users.sppd', compact('user','sppd'));
+        return view('sppd.users.sppd', compact('user', 'sppd'));
     }
     public function entry()
     {
@@ -39,7 +40,7 @@ class SPPDController extends Controller
     }
     public function storeentry(Request $request)
     {
-        $kabid = User::where('role','Kepala Bidang')->first();
+        $kabid = User::where('role', 'Kepala Bidang')->first();
         $validation = $this->validate($request, [
             'Acara'             => 'required',
             'TempatBerangkat'   => 'required',
@@ -59,7 +60,7 @@ class SPPDController extends Controller
                 'tgl_kembali'   => $request->Tanggal_Kembali,
                 'acara'         => $request->Acara
             ]);
-            $sppdid = Sppd::select('id')->orderBy('id','DESC')->first();
+            $sppdid = Sppd::select('id')->orderBy('id', 'DESC')->first();
             User::find(Auth::user()->id)->sppd()->attach($sppdid->id);
             Tempat::create([
                 'sppd_id'           => $sppdid->id,
@@ -67,10 +68,13 @@ class SPPDController extends Controller
                 'tempat_tujuan'     => $request->TempatTujuan
             ]);
             Kabid::create([
-                'sppd_id' =>$sppdid->id,
+                'sppd_id' => $sppdid->id,
                 'nama_kabid' => $kabid->nama,
                 'nip' => $kabid->nip,
                 'jabatan' => $kabid->jabatan->jabatan
+            ]);
+            Angkutan::create([
+                'sppd_id' => $sppdid->id
             ]);
             // Update Surat
             $this->updatenosurat($surat);
@@ -83,7 +87,7 @@ class SPPDController extends Controller
             }
             session()->flash('Success', 'Berhasil Menambah SPPD');
             return Redirect(Route('SPPD'));    # code...
-        }else {
+        } else {
             session()->flash('Failed', 'Gagal Menambah SPPD');
             return Redirect(Route('SPPD'));
         }
@@ -93,39 +97,25 @@ class SPPDController extends Controller
         $nosurat = $surat->no_surat + 1;
         $surat->update(['no_surat' => $nosurat]);
     }
-    public function showspt($id)
-    {
-        $user = User::getUser();
-        $sppd = Sppd::getSppd($id);
-        if ($this->CekUserSppd($user,$sppd)) {
-            $sppd = $sppd->first();
-            $sppd->update([
-                'tgl_surat'=> now()
-            ]);
-            return view('sppd.users.spt',compact('user','sppd'));
-        }else {
-            return view('sppd.users.akses',compact('user'));
-        }
-    }
     public function showsppd($id)
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
-        if ($this->CekUserSppd($user,$sppd)) {
+        if ($this->CekUserSppd($user, $sppd)) {
             $sppd = $sppd->first();
             $sppd->update([
-                'tgl_surat'=> now()
+                'tgl_surat' => now()
             ]);
-            return view('sppd.users.sppdoption',compact('user','sppd'));
-        }else {
-            return view('sppd.users.akses',compact('user'));
+            return view('sppd.users.sppdoption', compact('user', 'sppd'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
         }
     }
     public static function CekUserSppd($id_user, $id_sppd)
     {
-        foreach ($id_sppd as $sppd_data ) {
+        foreach ($id_sppd as $sppd_data) {
             foreach ($sppd_data->user as $user) {
-                if (($user->id == $id_user->id || $id_user->role == 'Admin' )) {
+                if (($user->id == $id_user->id || $id_user->role == 'Admin')) {
                     return true;
                 }
             }
@@ -135,15 +125,14 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
-        if ($this->CekUserSppd($user,$sppd)) {
+        if ($this->CekUserSppd($user, $sppd)) {
             $sppd = $sppd->first();
-            $lama = Sppd::selisih($sppd->tgl_pergi,$sppd->tgl_pergi);
-            return view('sppd.users.edit',compact('user','sppd','lama'));
-        }else {
-            return view('sppd.users.akses',compact('user'));
+            $lama = Sppd::selisih($sppd->tgl_pergi, $sppd->tgl_pergi);
+            return view('sppd.users.edit', compact('user', 'sppd', 'lama'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
         }
     }
-    
     public function addfollower($id)
     {
         $user = User::getUser();
@@ -151,29 +140,27 @@ class SPPDController extends Controller
         $sppduser = Sppd_user::orderBy('created_at', 'ASC')->where('sppd_id', $id)->get();
         $sppduserpegawai = User::select()->get();
         $sppd = Sppd::getSppd($id);
-        if ($this->CekUserSppd($user,$sppd)) {
+        if ($this->CekUserSppd($user, $sppd)) {
             $sppd = $sppd->first();
-            return view('sppd.users.addfollower',compact('user','all_user','sppd', 'sppduser', 'sppduserpegawai'));
-        }else {
-            return view('sppd.users.akses',compact('user'));
+            return view('sppd.users.addfollower', compact('user', 'all_user', 'sppd', 'sppduser', 'sppduserpegawai'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
         }
-        
     }
     public function storeaddfollower(Request $request, $id)
     {
         if ($request->nip != null) {
-            User::where('nip',$request->nip)->first()->sppd()->attach($id);
+            User::where('nip', $request->nip)->first()->sppd()->attach($id);
             session()->flash('Success', 'Berhasil Menambah Pengikut');
             return back();
-        }else {
+        } else {
             session()->flash('Failed', 'Gagal Menambah Pengikut');
             return back();
         }
-        
     }
     public function removefollower($sppd_id, $users_id)
     {
-        Sppd_user::select()->where('sppd_id', $sppd_id)->where('users_id',$users_id)->delete();
+        Sppd_user::select()->where('sppd_id', $sppd_id)->where('users_id', $users_id)->delete();
         session()->flash('Success', 'Berhasil Menghapus Pengikut');
         return back();
     }
@@ -181,12 +168,57 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
-        if ($this->CekUserSppd($user,$sppd)) {
+        if ($this->CekUserSppd($user, $sppd)) {
             $tempatb = User::enum_get('tempat', 'tempat_berangkat');
             $sppd = $sppd->first();
-            return view('sppd.users.angkutan',compact('user','sppd','tempatb'));
-        }else {
-            return view('sppd.users.akses',compact('user'));
+            return view('sppd.users.angkutan', compact('user', 'sppd', 'tempatb'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
         }
+    }
+    public function storeangkutan($id, Request $request)
+    {
+        $angkutan = Angkutan::where('sppd_id', $id)->first();
+        $angkutan->update([
+            'angkutan' => $request->Angkutan
+        ]);
+        session()->flash('Success', 'Berhasil Set Angkutan');
+        return back();
+    }
+    public function storejenis($id, Request $request)
+    {
+        $angkutan = Angkutan::where('sppd_id', $id)->first();
+        $angkutan->update([
+            'jenis' => $request->Jenis
+        ]);
+        session()->flash('Success', 'Berhasil Set Jenis Kendaraan');
+        return back();
+    }
+    public function storeplat($id, Request $request)
+    {
+        $angkutan = Angkutan::where('sppd_id', $id)->first();
+        $angkutan->update([
+            'plat' => $request->Plat
+        ]);
+        session()->flash('Success', 'Berhasil Set Nomor Plat');
+        return back();
+    }
+    public function storeumum($id, Request $request)
+    {
+        $angkutan = Angkutan::where('sppd_id', $id)->first();
+        $angkutan->update([
+            'angkutan_umum' => $request->Umum
+        ]);
+        session()->flash('Success', 'Berhasil Set Kendaraan Umum');
+        return back();
+    }
+    public function storesewa($id, Request $request)
+    {
+        $angkutan = Angkutan::where('sppd_id', $id)->first();
+        $angkutan->update([
+            'sewa' => $request->Sewa
+        ]);
+        session()->flash('Success', 'Berhasil Set Kendaraan Sewa');
+        return back();
     }
 }

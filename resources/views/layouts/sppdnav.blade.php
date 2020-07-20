@@ -6,10 +6,6 @@
 </div>
 <div class="col-12 row justify-content-between">
     <div>
-        <a href="{{ Route('SPPD') }}/{{ $sppd->id }}/SPT" class="btn btn-primary mb-3">
-            <i class="fa fa-arrow-circle-left"> </i>
-            &nbsp;&nbsp;Kembali SPT
-        </a>
         <a href="{{ Route('SPPD') }}/{{ $sppd->id }}/SPPD" class="btn btn-primary mb-3">
             <i class="fa fa-arrow-circle-left"> </i>
             &nbsp;&nbsp;Kembali SPPD

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\DasarSurat;
 use App\Models\Kabid;
-use App\Models\Auth\User;
 use App\Models\Tempat;
+use App\Models\Angkutan;
+use App\Models\Auth\User;
+use App\Models\DasarSurat;
 use Illuminate\Database\Eloquent\Model;
 
 class Sppd extends Model
@@ -28,6 +29,10 @@ class Sppd extends Model
     public function kabid()
     {
         return $this->hasOne(Kabid::class,'sppd_id');
+    }
+    public function angkutan()
+    {
+        return $this->hasOne(Angkutan::class,'sppd_id');
     }
     public function sppd_user()
     {

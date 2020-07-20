@@ -63,30 +63,11 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{ Route('SPPD') }}/{{ $item->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
+                                        <a href="{{ Route('SPPD') }}/{{ $item->id }}/SPPD"class="btn btn-primary" style="font-size: 12px">SPPD</a>
                                     </td>
                                 </tr>
                             
                             @endforeach
-                            {{-- @foreach ($sppd as $sppd_data)
-                            <tr>
-                                <th>{{ $no }}</th>
-                                <td>{{ $sppd_data->no_surat }}</td>
-                                <?php //$num_char=50;  ?>
-                                <td>{{  Str::limit($sppd_data->acara, 20, '...')  }}</td>
-                                <td>
-                                    <?php //$no1=1; ?>
-                                    @foreach ($sppd_data->user as $us)
-                                        <div>{{ $no1++ }}. {{ Str::limit($us->nama,20,'...') }}</div>
-                                    @endforeach
-                                </td>
-                                <td> 
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPT</a>
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPT"class="btn btn-primary" style="font-size: 12px">SPPD</a>
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/edit"class="btn btn-info" style="font-size: 12px">Lengkapi Data</a>
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a> --}}
-                            <?php //$no++;?>
-                            {{-- @endforeach  --}}
                         </tbody>
                     </table>
                     {{ $sppd->render() }}

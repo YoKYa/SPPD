@@ -32,10 +32,7 @@
                     <div class="text-center justify-content-center">
                         <h4>Surat Perintah Tugas</h4>
                         <hr>
-                        <div class="d-flex justify-content-center">
-                            <a href="{{ Route('CetakSPT') }}/{{ $sppd->id }}" target="_blank"class="btn-lg btn-block btn-info shadow-sm mb-2"
-                                style="font-weight: 600; text-decoration:none;">Cetak</a>
-                        </div>
+                        
                         <div class="d-flex justify-content-center">
                             <a href="{{ Route('SPPD') }}/{{$sppd->id}}/add"
                                 class="btn btn-primary shadow-sm mb-2 col-12 m-1" style="font-weight: 600">Lengkapi Data</a>

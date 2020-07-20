@@ -61,12 +61,16 @@ Route::prefix('SPPD')->middleware('auth')->group(function () {
     Route::post('/Entry', 'SPPDController@storeentry');
     Route::get('{id}/add', 'SPPDController@addfollower');
     Route::post('{id}/add', 'SPPDController@storeaddfollower');
-    Route::get('{id}/SPT/', 'SPPDController@showspt');
     Route::get('{id}/SPPD/', 'SPPDController@showsppd');
     Route::get('{id}/edit', 'SPPDController@editsppd');
 
     // Angkutan
     Route::get('{id}/angkutan', 'SPPDController@angkutan');
+    Route::patch('{id}/angkutan', 'SPPDController@storeangkutan');
+    Route::patch('{id}/jenis', 'SPPDController@storejenis');
+    Route::patch('{id}/plat', 'SPPDController@storeplat');
+    Route::patch('{id}/umum', 'SPPDController@storeumum');
+    Route::patch('{id}/sewa', 'SPPDController@storesewa');
 
     Route::delete('{sppd_id}/{users_id}/delete', 'SPPDController@removefollower');
 });

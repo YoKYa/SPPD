@@ -113,9 +113,53 @@ $tabelsppd->easyCell('Maksud Perjalanan Dinas','colspan:2');
 $tabelsppd->easyCell($sppd->acara,'colspan:2');
 $tabelsppd->printRow();
 // 7
+$angkutan = '';
+if ($sppd->angkutan->angkutan == "Angkutan Dinas") {
+    if ($sppd->angkutan->jenis == "Roda Dua") {
+        if ($sppd->angkutan->plat != null) {
+            $angkutan = "Sepeda Motor Dinas - " .$sppd->angkutan->plat; 
+        }else {
+            $angkutan = "Sepeda Motor Dinas ";
+        }
+    }elseif ($sppd->angkutan->jenis == "Roda Empat") {
+        if ($sppd->angkutan->plat != null) {
+            $angkutan = "Mobil Dinas - ".$sppd->angkutan->plat;
+        }else {
+            $angkutan = "Mobil Dinas ";
+        }
+    }
+}elseif ($sppd->angkutan->angkutan == "Angkutan Pribadi") {
+    if ($sppd->angkutan->jenis == "Roda Dua") {
+        if ($sppd->angkutan->plat != null) {
+            $angkutan = "Sepeda Motor Pribadi - " .$sppd->angkutan->plat; 
+        }else {
+            $angkutan = "Sepeda Motor Pribadi ";
+        }
+    }elseif ($sppd->angkutan->jenis == "Roda Empat") {
+        if ($sppd->angkutan->plat != null) {
+            $angkutan = "Mobil Pribadi - ".$sppd->angkutan->plat;
+        }else {
+            $angkutan = "Mobil Pribadi ";
+        }
+    }
+}elseif ($sppd->angkutan->angkutan == "Angkutan Umum") {
+    $angkutan = $sppd->angkutan->angkutan_umum." (PP)";
+}elseif ($sppd->angkutan->angkutan == "Angkutan Sewa") {
+    if ($sppd->angkutan->sewa == "Roda Enam/Bus Besar") {
+        $angkutan = "Bus Besar Sewa";
+    }elseif ($sppd->angkutan->sewa == "Roda Enam/Bus Sedang") {
+        $angkutan = "Bus Sedang Sewa";
+    }elseif ($sppd->angkutan->sewa == "Roda Empat/Bus Mini") {
+        $angkutan = "Bus Mini Sewa";
+    }elseif ($sppd->angkutan->sewa == "Roda Empat") {
+        $angkutan = "Mobil Sewa";
+    }elseif ($sppd->angkutan->sewa == "Roda Dua") {
+        $angkutan = "Sepeda Motor Sewa";
+    }
+}
 $tabelsppd->easyCell($no++.". ", 'valign:T;border:LR');
 $tabelsppd->easyCell('Alat Angkutan Yang Dipergunakan','border:0;colspan:2');
-$tabelsppd->easyCell("-", 'border:LR;colspan:2');
+$tabelsppd->easyCell($angkutan, 'border:LR;colspan:2');
 $tabelsppd->printRow();
 // 8 
 $tabelsppd->easyCell($no++.". ", 'rowspan:2;valign:T;border:LRB');
@@ -141,11 +185,16 @@ $tabelsppd->easyCell('c. '.date('d-m-Y',strtotime($sppd->tgl_kembali)),'border:R
 $tabelsppd->printRow();
 // 13
 $span = $a;
+if ($span == 1) {
+    $bordered = "B";
+}else {
+    $bordered = 0;
+}
 $tabelsppd->easyCell($no++.". ", 'rowspan:'.$span.';valign:T;border:LRB');
-$tabelsppd->easyCell('Pengikut :','border:0;');
-$tabelsppd->easyCell('Nama/NIP','border:0;');
-$tabelsppd->easyCell('Pangkat/Golongan','border:L;');
-$tabelsppd->easyCell('Keterangan','border:LR;');
+$tabelsppd->easyCell('Pengikut :','border:'.$bordered.';');
+$tabelsppd->easyCell('Nama/NIP','border:'.$bordered.';');
+$tabelsppd->easyCell('Pangkat/Golongan','border:'.$bordered.'L;');
+$tabelsppd->easyCell('Keterangan','border:'.$bordered.'LR;');
 $tabelsppd->printRow();
 // 14 
 $b = 0;
