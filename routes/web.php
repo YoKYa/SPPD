@@ -46,11 +46,24 @@ Route::prefix('Admin')->middleware('auth')->group(function () {
     Route::patch('/Setting/settahunsurat', 'SettingController@settahunsurat')->name('SetTahunSurat');
     Route::get('/Setting/dasarsurat', 'SettingController@dasarsurat')->name('DasarSurat');
     Route::patch('/Setting/bidang', 'SettingController@SetBidang')->name('SetBidang');
+    Route::get('/Setting/SKPD', 'SettingController@SKPD')->name('SKPD');
+    Route::get('/Setting/Program', 'SettingController@Program')->name('Program');
+
 
     Route::post('/Setting/dasarsurat', 'SettingController@tambahdasarsurat');
     Route::get('/Setting/dasarsurat/{id}/edit', 'SettingController@editdasarsurat');
     Route::patch('/Setting/dasarsurat/{id}/edit', 'SettingController@storeeditdasarsurat');
     Route::delete('/Setting/dasarsurat/{id}/delete', 'SettingController@deldasarsurat');
+
+    Route::post('/Setting/SKPD', 'SettingController@tambahskpd');
+    Route::get('/Setting/SKPD/{id}/edit', 'SettingController@editskpd');
+    Route::patch('/Setting/SKPD/{id}/edit', 'SettingController@storeeditskpd');
+    Route::delete('/Setting/SKPD/{id}/delete', 'SettingController@delskpd');
+
+    Route::post('/Setting/Program', 'SettingController@tambahProgram');
+    Route::get('/Setting/Program/{id}/edit', 'SettingController@editProgram');
+    Route::patch('/Setting/Program/{id}/edit', 'SettingController@storeeditProgram');
+    Route::delete('/Setting/Program/{id}/delete', 'SettingController@delProgram');
 
     Route::get('/SPPD', 'AdminController@datasppd')->name('AdminSPPD');
 });

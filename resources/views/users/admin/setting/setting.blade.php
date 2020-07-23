@@ -66,6 +66,13 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-md">Simpan</button>
                 </form>
+                <div class="form-group row d-flex align-items-center">
+                    <label for="DasarSPPD" class="col-sm-3 col-form-label">SKPD</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <a href="{{ Route('SKPD') }}" class="btn btn-primary" id="SKPD" placeholder=" SKPD..." name="SKPD" readonly>Set SKPD</a>
+                    </div>
+                </div>
             </div>
             
         </div>
