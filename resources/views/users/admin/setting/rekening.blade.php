@@ -27,19 +27,19 @@
                     {{ session()->get('Failed') }}
                 </div>
                 @endif
-                <h3 class="text-center">Program
+                <h3 class="text-center">Rekening
                 </h3>
                 <br>
                 <?php $no = 1 ?>
-                @foreach ($program as $isi)
+                @foreach ($rekening as $isi)
                 <div class="form-group row d-flex align-items-center">
-                    <label for="Program{{ $isi->id }}" class="col-sm-1 col-form-label">{{ $no++ }}</label>
+                    <label for="Rekening{{ $isi->id }}" class="col-sm-1 col-form-label">{{ $no++ }}</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control justify-content-center" id="Program{{ $isi->id }}"readonly>{{ $isi->program }}</textarea>
+                        <textarea class="form-control justify-content-center" id="Rekening{{ $isi->id }}"readonly>{{ $isi->rekening }}</textarea>
                     </div>
                     <div class="row d-flex">
-                        <a href="{{ Route('Program') }}/{{ $isi->id }}/edit" class="col-sm-11 btn btn-sm btn-primary ml-3 mb-2">Edit</a>
-                        <button href="{{ Route('Program') }}/{{ $isi->id }}/delete" class="col-sm-11 btn btn-sm btn-danger ml-3" data-toggle="modal" data-target="#Modal{{ $isi->id }}">Hapus</button>
+                        <a href="{{ Route('Rekening') }}/{{ $isi->id }}/edit" class="col-sm-11 btn btn-sm btn-primary ml-3 mb-2">Edit</a>
+                        <button href="{{ Route('Rekening') }}/{{ $isi->id }}/delete" class="col-sm-11 btn btn-sm btn-danger ml-3" data-toggle="modal" data-target="#Modal{{ $isi->id }}">Hapus</button>
                         <!-- Modal -->
                         <div class="modal fade" id="Modal{{ $isi->id }}" tabindex="-1" role="dialog" aria-labelledby="Hapus{{ $isi->id }}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -51,16 +51,15 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6>{{ $isi->program }}</h6>
+                                        <h6>{{ $isi->rekening }}</h6>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="{{ Route('Program') }}/{{ $isi->id }}/delete" method="post">
+                                        <form action="{{ Route('Rekening') }}/{{ $isi->id }}/delete" method="post">
                                             @method('delete')
                                             @csrf   
                                             <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                                         </form>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +68,7 @@
                 </div>    
                 <hr>
                 @endforeach
-                <form action="{{ Route('Program') }}" method="post">
+                <form action="{{ Route('Rekening') }}" method="post">
                     @csrf
                     <button href="" class="btn btn-block btn-primary ml-3 mb-2">Tambah</button>
                 </form>

@@ -27,6 +27,10 @@ class Sppd extends Model
     {
         return $this->hasOne(Tempat::class,'sppd_id');
     }
+    public function bbsppd()
+    {
+        return $this->hasOne(Bbsppd::class,'sppd_id');
+    }
     public function kabid()
     {
         return $this->hasOne(Kabid::class,'sppd_id');

@@ -15,10 +15,15 @@
         <a href="{{ Route('SPPD') }}/{{ $sppd->id }}/@if (request()->is('SPPD/'.$sppd->id."/add"))angkutan @endif
 @if (request()->is('SPPD/'.$sppd->id."/angkutan"))bebanbiaya @endif
 @if (request()->is('SPPD/'.$sppd->id."/bebanbiaya"))keterangan @endif
+@if (request()->is('SPPD/'.$sppd->id."/keterangan"))selesai @endif
 
             " class="btn btn-primary mb-3">
             <i class="fa fa-arrow-circle-right"> </i>
-            &nbsp;&nbsp;Selanjutnya
+            &nbsp;&nbsp; @if (request()->is('SPPD/'.$sppd->id."/keterangan"))
+            Selesai
+            @else
+            Selanjutnya
+            @endif 
         </a>
     </div>
 </div>

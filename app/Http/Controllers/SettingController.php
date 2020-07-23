@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bidang;
 use App\Models\Auth\User;
 use App\Models\Dasar;
+use App\Models\Kegiatan;
 use App\Models\Nosurat;
 use App\Models\Program;
+use App\Models\Rekening;
 use App\Models\Skpd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -194,5 +196,93 @@ class SettingController extends Controller
             session()->flash('Failed', '(Gagal) Menghapus Program');
         }
         return Redirect(Route('Program'));
+    }
+    public function Kegiatan()
+    {
+        $kegiatan = Kegiatan::get();
+        $user = User::getUser();
+        return view('users.admin.setting.kegiatan',compact('kegiatan','user'));
+    }
+    public function tambahKegiatan()
+    {
+        Kegiatan::create([
+            'kegiatan' => ''
+        ]);
+        session()->flash('Success', '(Berhasil) Menambah Kegiatan');
+        return Redirect(Route('Kegiatan'));
+    }
+    public function editKegiatan($id)
+    {
+        $kegiatan = Kegiatan::get()->where('id', $id)->first();
+        $user = User::getUser();
+        return view('users.admin.setting.kegiatanedit', compact('kegiatan','user'));
+    }
+    public function storeeditKegiatan(Request $request,$id)
+    {
+        if ($request->Kegiatan == null) {
+            session()->flash('Failed', '(Gagal) Edit');
+        }else {
+            if(Kegiatan::where('id',$id)->first()->update([
+                'kegiatan' => $request->Kegiatan
+            ])){
+                session()->flash('Success', '(Berhasil) Edit Kegiatan');
+            }else{
+                session()->flash('Failed', '(Gagal) Edit Kegiatan');
+            }
+        }
+        return redirect(Route('Kegiatan'));
+    }
+    public function delKegiatan($id)
+    {
+        if (Kegiatan::where('id',$id)->first()->delete()) {
+            session()->flash('Success', '(Berhasil) Menghapus Kegiatan');
+        }else {
+            session()->flash('Failed', '(Gagal) Menghapus Kegiatan');
+        }
+        return Redirect(Route('Kegiatan'));
+    }
+    public function Rekening()
+    {
+        $rekening = Rekening::get();
+        $user = User::getUser();
+        return view('users.admin.setting.rekening',compact('rekening','user'));
+    }
+    public function tambahRekening()
+    {
+        Rekening::create([
+            'rekening' => ''
+        ]);
+        session()->flash('Success', '(Berhasil) Menambah Rekening');
+        return Redirect(Route('Rekening'));
+    }
+    public function editRekening($id)
+    {
+        $rekening = Rekening::get()->where('id', $id)->first();
+        $user = User::getUser();
+        return view('users.admin.setting.rekeningedit', compact('rekening','user'));
+    }
+    public function storeeditRekening(Request $request,$id)
+    {
+        if ($request->Rekening == null) {
+            session()->flash('Failed', '(Gagal) Edit');
+        }else {
+            if(Rekening::where('id',$id)->first()->update([
+                'rekening' => $request->Rekening
+            ])){
+                session()->flash('Success', '(Berhasil) Edit Rekening');
+            }else{
+                session()->flash('Failed', '(Gagal) Edit Rekening');
+            }
+        }
+        return redirect(Route('Rekening'));
+    }
+    public function delRekening($id)
+    {
+        if (Rekening::where('id',$id)->first()->delete()) {
+            session()->flash('Success', '(Berhasil) Menghapus Rekening');
+        }else {
+            session()->flash('Failed', '(Gagal) Menghapus Rekening');
+        }
+        return Redirect(Route('Rekening'));
     }
 }

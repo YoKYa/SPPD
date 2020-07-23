@@ -180,7 +180,7 @@ $tabelsppd->easyCell('b. Tanggal Berangkat','border:0;colspan:2');
 $tabelsppd->easyCell('b. '.date('d-m-Y',strtotime($sppd->tgl_pergi)),'border:LR;colspan:2');
 $tabelsppd->printRow();
 // 12
-$tabelsppd->easyCell('c. Tanggal Harus Kembali'.$a,'border:RB;colspan:2');
+$tabelsppd->easyCell('c. Tanggal Harus Kembali','border:RB;colspan:2');
 $tabelsppd->easyCell('c. '.date('d-m-Y',strtotime($sppd->tgl_kembali)),'border:RB;colspan:2');
 $tabelsppd->printRow();
 // 13
@@ -223,19 +223,19 @@ $tabelsppd->easyCell('','border:LR;colspan:2');
 $tabelsppd->printRow();
 // 16 
 $tabelsppd->easyCell('a. Satuan Kerja Perangkat Daerah','border:0;colspan:2');
-$tabelsppd->easyCell('','border:LR;colspan:2');
+$tabelsppd->easyCell($sppd->bbsppd->skpd,'border:LR;colspan:2');
 $tabelsppd->printRow();
 // 17
 $tabelsppd->easyCell('b. Program','border:0;colspan:2');
-$tabelsppd->easyCell('','border:LR;colspan:2');
+$tabelsppd->easyCell($sppd->bbsppd->program,'border:LR;colspan:2');
 $tabelsppd->printRow();
 // 18
 $tabelsppd->easyCell('c. Kegiatan','border:0;colspan:2');
-$tabelsppd->easyCell('','border:LR;colspan:2');
+$tabelsppd->easyCell($sppd->bbsppd->kegiatan,'border:LR;colspan:2');
 $tabelsppd->printRow();
 // 19 
 $tabelsppd->easyCell('d. Kode Rekening','border:B;colspan:2');
-$tabelsppd->easyCell('','border:LRB;colspan:2');
+$tabelsppd->easyCell($sppd->bbsppd->rekening,'border:LRB;colspan:2');
 $tabelsppd->printRow();
 // 20
 $tabelsppd->easyCell($no++.". ", 'valign:T');

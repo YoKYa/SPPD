@@ -48,6 +48,8 @@ Route::prefix('Admin')->middleware('auth')->group(function () {
     Route::patch('/Setting/bidang', 'SettingController@SetBidang')->name('SetBidang');
     Route::get('/Setting/SKPD', 'SettingController@SKPD')->name('SKPD');
     Route::get('/Setting/Program', 'SettingController@Program')->name('Program');
+    Route::get('/Setting/Kegiatan', 'SettingController@Kegiatan')->name('Kegiatan');
+    Route::get('/Setting/Rekening', 'SettingController@Rekening')->name('Rekening');
 
 
     Route::post('/Setting/dasarsurat', 'SettingController@tambahdasarsurat');
@@ -64,6 +66,16 @@ Route::prefix('Admin')->middleware('auth')->group(function () {
     Route::get('/Setting/Program/{id}/edit', 'SettingController@editProgram');
     Route::patch('/Setting/Program/{id}/edit', 'SettingController@storeeditProgram');
     Route::delete('/Setting/Program/{id}/delete', 'SettingController@delProgram');
+
+    Route::post('/Setting/Kegiatan', 'SettingController@tambahKegiatan');
+    Route::get('/Setting/Kegiatan/{id}/edit', 'SettingController@editKegiatan');
+    Route::patch('/Setting/Kegiatan/{id}/edit', 'SettingController@storeeditKegiatan');
+    Route::delete('/Setting/Kegiatan/{id}/delete', 'SettingController@delKegiatan');
+
+    Route::post('/Setting/Rekening', 'SettingController@tambahRekening');
+    Route::get('/Setting/Rekening/{id}/edit', 'SettingController@editRekening');
+    Route::patch('/Setting/Rekening/{id}/edit', 'SettingController@storeeditRekening');
+    Route::delete('/Setting/Rekening/{id}/delete', 'SettingController@delRekening');
 
     Route::get('/SPPD', 'AdminController@datasppd')->name('AdminSPPD');
 });
@@ -87,10 +99,13 @@ Route::prefix('SPPD')->middleware('auth')->group(function () {
 
     // Beban Biaya
     Route::get('{id}/bebanbiaya', 'SPPDController@bebanbiaya');
+    Route::patch('{id}/bebanbiaya', 'SPPDController@storebebanbiaya');
 
     // Keterangan
     Route::get('{id}/keterangan', 'SPPDController@keterangan');
     Route::patch('{id}/keterangan', 'SPPDController@storeketerangan');
+
+    Route::get('{id}/selesai', 'SPPDController@selesai');
 
     Route::delete('{sppd_id}/{users_id}/delete', 'SPPDController@removefollower');
 });

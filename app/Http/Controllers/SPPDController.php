@@ -10,9 +10,16 @@ use App\Models\Sppd;
 use App\Models\Dasar;
 use App\Models\Nosurat;
 use App\Models\Auth\User;
+use App\Models\Bbsppd;
+use App\Models\Bebanbiaya;
+use App\Models\Kegiatan;
 use App\Models\Keterangan;
+use App\Models\Program;
+use App\Models\Rekening;
+use App\Models\Skpd;
 use App\Models\Sppd_user;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -78,6 +85,9 @@ class SPPDController extends Controller
                 'sppd_id' => $sppdid->id
             ]);
             Keterangan::create([
+                'sppd_id' => $sppdid->id
+            ]);
+            Bbsppd::create([
                 'sppd_id' => $sppdid->id
             ]);
             // Update Surat
@@ -229,13 +239,33 @@ class SPPDController extends Controller
     {
         $user = User::getUser();
         $sppd = Sppd::getSppd($id);
+        $skpd = Skpd::get();
+        $program = Program::get();
+        $kegiatan = Kegiatan::get();
+        $rekening = Rekening::get();
+        $bbsppd = Bbsppd::get()->where('sppd_id',$id)->first();
         if ($this->CekUserSppd($user, $sppd)) {
-            $tempatb = User::enum_get('tempat', 'tempat_berangkat');
             $sppd = $sppd->first();
-            return view('sppd.users.bebanbiaya', compact('user', 'sppd', 'tempatb'));
+            return view('sppd.users.bebanbiaya', compact('user', 'sppd','skpd','program','kegiatan','rekening','bbsppd'));
         } else {
             return view('sppd.users.akses', compact('user'));
         }
+    }
+    public function storebebanbiaya($id, Request $request)
+    {
+        $bbsppd = Bbsppd::where('sppd_id', $id)->first();
+        $bbsppd->update([
+            'skpd' => $request->SKPD,
+            'program' => $request->Program,
+            'kegiatan' => $request->Kegiatan,
+            'rekening' => $request->KodeRekening
+        ]);
+        session()->flash('Success', 'Berhasil Set Kendaraan Sewa');
+        return back();
+    }
+    public function selesai($id)
+    {
+        return Redirect(Route('SPPD').'/'.$id.'/SPPD');
     }
 
     public function keterangan($id)

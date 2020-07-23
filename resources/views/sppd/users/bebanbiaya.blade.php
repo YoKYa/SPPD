@@ -6,7 +6,6 @@
     .select2-container--default .select2-results__option[aria-disabled="true"] {
         color: rgb(196, 196, 196);
     }
-
 </style>
 <div class="container-fluid" style="font-size: 20px">
     {{-- Breadcrump --}}
@@ -22,8 +21,8 @@
             <div class="row justify-content-between">
                 <div class="col-12">@include('layouts.help')</div>
             </div>
-            
-            
+
+
             {{-- Bagian Isi --}}
             <div class="tab-content bg-light rounded-lg shadow p-4 row justify-content-center" id="v-pills-tabContent">
                 @if (session()->get('Success'))
@@ -38,73 +37,91 @@
                 @endif
                 @include('layouts.sppdnav')
                 <div class="tab-content bg-light rounded-lg shadow p-4 mb-5 col-12" id="v-pills-tabContent">
-                    <div class="row justify-content-start">
+                    <form class="row justify-content-start" method="POST" action="{{ Route('SPPD') }}/{{ $sppd->id }}/bebanbiaya">
+                        @method('patch')
+                        @csrf
                         <h4 class="col-12 text-center">Beban Biaya</h4>
                         <hr class="d-flex row col-12">
                         {{-- SKPD --}}
                         <div class="col-12">
-                            <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/skpd" method="POST">
-                                @method('patch')
-                                @csrf
+                            <div class="form-group row d-flex align-items-center">
                                 <label for="SKPD" class="col-sm-3 col-form-label">Satuan Kerja Perangkat Daerah</label>
                                 <div class="col-sm-1 text-right">:</div>
                                 <div class="col-sm-8">
-                                    <select class="form-control form-control-md" id="SKPD" name="SKPD" readonly>
+                                    <select class="form-control form-control-md" id="SKPD" name="SKPD">
                                         <option disabled>Pilih SKPD ...</option>
-                                        <option value="Dinas PU. Sumber Daya Air Provinsi Jawa Timur" selected>Dinas PU. Sumber Daya Air Provinsi Jawa Timur</option>
+                                        @foreach ($skpd as $skpd_data)
+                                        <option value="{{ $skpd_data->skpd }}" @if ($bbsppd->skpd == $skpd_data->skpd)
+                                            selected
+                                        @endif>
+                                            {{ $skpd_data->skpd }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                            </form> 
+                            </div>
                         </div>
                         {{-- Program --}}
                         <div class="col-12">
-                            <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/program" method="POST">
-                                @method('patch')
-                                @csrf
+                            <div class="form-group row d-flex align-items-center">
                                 <label for="Program" class="col-sm-3 col-form-label">Program</label>
                                 <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <select class="form-control form-control-md" id="Program" name="Program">
-                                        <option disabled selected>Pilih Program ...</option>
-                                        <option value="">Program Hidrologi</option>
+                                        <option disabled>Pilih Program ...</option>
+                                        @foreach ($program as $program_data)
+                                        <option value="{{ $program_data->program }}" @if ($bbsppd->program == $program_data->program)
+                                            selected
+                                        @endif>
+                                            {{ $program_data->program }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
+                            </div>
                         </div>
                         {{-- Kegiatan --}}
                         <div class="col-12">
-                            <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/kegiatan" method="POST">
-                                @method('patch')
-                                @csrf
+                            <div class="form-group row d-flex align-items-center" >
                                 <label for="Kegiatan" class="col-sm-3 col-form-label">Kegiatan</label>
                                 <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <select class="form-control form-control-md" id="Kegiatan" name="Kegiatan">
-                                        <option disabled selected>Pilih Kegiatan ...</option>
-                                        <option value="">Hidrologi dan Kualitas Air</option>
+                                        <option disabled>Pilih Kegiatan ...</option>
+                                        @foreach ($kegiatan as $kegiatan_data)
+                                        <option value="{{ $kegiatan_data->kegiatan }}" @if ($bbsppd->kegiatan == $kegiatan_data->kegiatan)
+                                            selected
+                                        @endif>
+                                            {{ $kegiatan_data->kegiatan }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
+                            </div>
                         </div>
                         {{-- Kode Rekening --}}
                         <div class="col-12">
-                            <form class="form-group row d-flex align-items-center" action="{{ Route('SPPD') }}/{{ $sppd->id }}/koderekening" method="POST">
-                                @method('patch')
-                                @csrf
+                            <div class="form-group row d-flex align-items-center">
                                 <label for="KodeRekening" class="col-sm-3 col-form-label">Kode Rekening</label>
                                 <div class="col-sm-1 text-right">:</div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <select class="form-control form-control-md" id="KodeRekening" name="KodeRekening">
-                                        <option disabled selected>Pilih Kode Rekening ...</option>
-                                        <option value="">5.2.2.15.01</option>
+                                        <option disabled>Pilih Kode Rekening ...</option>
+                                        @foreach ($rekening as $rekening_data)
+                                        <option value="{{ $rekening_data->rekening }}" @if ($bbsppd->rekening == $rekening_data->rekening)
+                                            selected
+                                        @endif>
+                                            {{ $rekening_data->rekening }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <button type="submit" class="col-2 btn btn-primary">Simpan</button>
-                            </form> 
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-12">
+                            <button class="btn btn-md btn-primary btn-block" type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

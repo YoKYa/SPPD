@@ -67,10 +67,31 @@
                     <button type="submit" class="btn btn-primary btn-md">Simpan</button>
                 </form>
                 <div class="form-group row d-flex align-items-center">
-                    <label for="DasarSPPD" class="col-sm-3 col-form-label">SKPD</label>
+                    <label for="SKPD" class="col-sm-3 col-form-label">SKPD</label>
                     <div class="col-sm-1 text-right">:</div>
                     <div class="col-sm-8">
                         <a href="{{ Route('SKPD') }}" class="btn btn-primary" id="SKPD" placeholder=" SKPD..." name="SKPD" readonly>Set SKPD</a>
+                    </div>
+                </div>
+                <div class="form-group row d-flex align-items-center">
+                    <label for="Program" class="col-sm-3 col-form-label">Program</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <a href="{{ Route('Program') }}" class="btn btn-primary" id="Program" placeholder="Program..." name="Program" readonly>Set Program</a>
+                    </div>
+                </div>
+                <div class="form-group row d-flex align-items-center">
+                    <label for="Kegiatan" class="col-sm-3 col-form-label">Kegiatan</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <a href="{{ Route('Kegiatan') }}" class="btn btn-primary" id="Kegiatan" placeholder="Kegiatan..." name="Kegiatan" readonly>Set Kegiatan</a>
+                    </div>
+                </div>
+                <div class="form-group row d-flex align-items-center">
+                    <label for="Rekening" class="col-sm-3 col-form-label">Rekening</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <a href="{{ Route('Rekening') }}" class="btn btn-primary" id="Rekening" placeholder="Rekening..." name="Rekening" readonly>Set Rekening</a>
                     </div>
                 </div>
             </div>
