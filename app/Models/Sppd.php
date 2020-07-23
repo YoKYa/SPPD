@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Kabid;
 use App\Models\Tempat;
 use App\Models\Angkutan;
+use App\Models\Keterangan;
 use App\Models\Auth\User;
 use App\Models\DasarSurat;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,10 @@ class Sppd extends Model
     public function angkutan()
     {
         return $this->hasOne(Angkutan::class,'sppd_id');
+    }
+    public function keterangan()
+    {
+        return $this->hasOne(Keterangan::class,'sppd_id');
     }
     public function sppd_user()
     {

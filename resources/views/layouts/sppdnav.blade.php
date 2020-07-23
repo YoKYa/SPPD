@@ -13,8 +13,8 @@
     </div>
     <div>
         <a href="{{ Route('SPPD') }}/{{ $sppd->id }}/@if (request()->is('SPPD/'.$sppd->id."/add"))angkutan @endif
-@if (request()->is('SPPD/'.$sppd->id."/angkutan"))test2 @endif
-@if (request()->is('SPP/'.$sppd->id."/add"))test3 @endif
+@if (request()->is('SPPD/'.$sppd->id."/angkutan"))bebanbiaya @endif
+@if (request()->is('SPPD/'.$sppd->id."/bebanbiaya"))keterangan @endif
 
             " class="btn btn-primary mb-3">
             <i class="fa fa-arrow-circle-right"> </i>

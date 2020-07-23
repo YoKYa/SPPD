@@ -51,7 +51,7 @@ $pdf->Cell(0,5,'',0,1,'C');
 // ================================================ Header
 
 $pdf->SetFont('Arial','',10);
-$tabelsppd = new easyTable($pdf, '{10,45,45,55,45}','border:1; paddingY:2; paddingX:2');
+$tabelsppd = new easyTable($pdf, '{10,45,45,55,45}','border:1; paddingX:2');
 
 $no = 1;
 // 1
@@ -240,7 +240,7 @@ $tabelsppd->printRow();
 // 20
 $tabelsppd->easyCell($no++.". ", 'valign:T');
 $tabelsppd->easyCell('KETERANGAN LAIN-LAIN','border:1;colspan:2');
-$tabelsppd->easyCell('','border:LRB;colspan:2');
+$tabelsppd->easyCell($sppd->keterangan->keterangan,'border:LRB;colspan:2');
 $tabelsppd->printRow();
 
 $tabelsppd->endTable(4);
@@ -270,6 +270,6 @@ $pdf->Multicell(105,4,$sppd->kabid->jabatan ?? '-',$border,'C');
 $pdf->Cell(85,5,'',$border,0,'L');
 $pdf->Multicell(105,4,'NIP. '.$sppd->kabid->nip ,$border,'C');
 
-$pdf->Output();
+$pdf->Output('I','SPT - '.$sppd->no_surat."/".$sppd->tahun_surat." - ".$sppd->acara." - ".strtotime(now()));
 exit;
 ?>

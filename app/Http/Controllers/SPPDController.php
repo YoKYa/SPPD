@@ -10,6 +10,7 @@ use App\Models\Sppd;
 use App\Models\Dasar;
 use App\Models\Nosurat;
 use App\Models\Auth\User;
+use App\Models\Keterangan;
 use App\Models\Sppd_user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +75,9 @@ class SPPDController extends Controller
                 'jabatan' => $kabid->jabatan->jabatan
             ]);
             Angkutan::create([
+                'sppd_id' => $sppdid->id
+            ]);
+            Keterangan::create([
                 'sppd_id' => $sppdid->id
             ]);
             // Update Surat
@@ -219,6 +223,39 @@ class SPPDController extends Controller
             'sewa' => $request->Sewa
         ]);
         session()->flash('Success', 'Berhasil Set Kendaraan Sewa');
+        return back();
+    }
+    public function bebanbiaya($id)
+    {
+        $user = User::getUser();
+        $sppd = Sppd::getSppd($id);
+        if ($this->CekUserSppd($user, $sppd)) {
+            $tempatb = User::enum_get('tempat', 'tempat_berangkat');
+            $sppd = $sppd->first();
+            return view('sppd.users.bebanbiaya', compact('user', 'sppd', 'tempatb'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
+        }
+    }
+
+    public function keterangan($id)
+    {
+        $user = User::getUser();
+        $sppd = Sppd::getSppd($id);
+        if ($this->CekUserSppd($user, $sppd)) {
+            $sppd = $sppd->first();
+            return view('sppd.users.keterangan', compact('user', 'sppd'));
+        } else {
+            return view('sppd.users.akses', compact('user'));
+        }
+    }
+    public function storeketerangan($id, Request $request)
+    {
+        $keterangan = Keterangan::where('sppd_id', $id)->first();
+        $keterangan->update([
+            'keterangan' => $request->Keterangan
+        ]);
+        session()->flash('Success', 'Berhasil Set Keterangan');
         return back();
     }
 }

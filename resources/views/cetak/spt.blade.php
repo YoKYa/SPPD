@@ -74,18 +74,14 @@ foreach ($sppduser as $sppd_data2) {
             $pdf->Cell(5,5,':',$border,0,'L');
             $pdf->Multicell(120,5, $sppd_data->jabatan->jabatan ?? " - " ,$border,'J');
             $Y=$pdf->GetY();
-            $pdf->Cell(0,2,'',$border,1,'C');
-            if ($Y >= 217) {
-                $pdf->Cell(0,5,'',$border,1,'C');
-            }
+            $pdf->Cell(0,1,'',$border,1,'C');
         }
     }
 }
-$pdf->Cell(0,3,'',$border,1,'C');
 $Y=$pdf->GetY();
-if ($Y >= 230) {
-    $pdf->AddPage();
-}
+// if ($Y >= 230) {
+//     $pdf->AddPage();
+// }
 $pdf->Cell(25,5,'UNTUK     :',$border,0,'L');
 $pdf->Cell(165,5,$sppd->acara,$border,1,'L');
 $pdf->Cell(0,2,'',$border,1,'C');
@@ -107,7 +103,7 @@ $pdf->Cell(30,5,'Pada Tanggal',$border,0,'L');
 $pdf->Cell(50,5, date('d-m-Y',strtotime($sppd->tgl_surat)),$border,1,'L');
 $pdf->Cell(0,2,'',$border,1,'C');
 $pdf->Cell(85,5,'',$border,0,'L');
-$pdf->Cell(105,5,'Plt. KEPALA BIDANG '.strtoupper($bidang->nama_bidang),$border,1,'C');
+$pdf->Cell(105,5,'KEPALA BIDANG '.strtoupper($bidang->nama_bidang),$border,1,'C');
 $pdf->Cell(85,5,'',$border,0,'L');
 $pdf->Cell(105,5,'DINAS PU SUMBER DAYA AIR PROVINSI JAWA TIMUR',$border,1,'C');
 $pdf->Cell(0,20,'',$border,1,'C');
@@ -118,6 +114,6 @@ $pdf->Multicell(105,5,$sppd->kabid->jabatan ?? '-',$border,'C');
 $pdf->Cell(85,5,'',$border,0,'L');
 $pdf->Multicell(105,5,'NIP. '.$sppd->kabid->nip ,$border,'C');
 
-$pdf->Output();
+$pdf->Output('I','SPT - '.$sppd->no_surat."/".$sppd->tahun_surat." - ".$sppd->acara." - ".strtotime(now()));
 exit;
 ?>

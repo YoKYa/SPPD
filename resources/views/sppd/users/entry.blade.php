@@ -60,7 +60,6 @@
                         </div>
                     </div>
                     <hr>
-        
                     <div class="form-group row d-flex align-items-center">
                         <label for="Maksud" class="col-sm-4 col-form-label">Acara <div class="text-secondary small">( Maksud Perjalanan Dinas )</div></label>
                         <div class="col-sm-1 text-right">:</div>
@@ -151,57 +150,3 @@
 </script>
 <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 @endsection
-
-{{-- 
-                    <br>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Instansi" class="col-sm-4 col-form-label">Instansi</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control justify-content" id="Instansi" placeholder="Dinas PU Sumber Daya Air" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Program" class="col-sm-4 col-form-label">Program</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <select class="form-control form-control-md" id="Program">
-                                <option>Pilih Program...</option>
-                                <option>Program 1</option>
-                                <option>Program 2</option>
-                                <option>Program 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Kegiatan" class="col-sm-4 col-form-label">Kegiatan</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <select class="form-control form-control-md" id="Kegiatan">
-                                <option>Pilih Kegiatan...</option>
-                                <option>Kegiatan 1</option>
-                                <option>Kegiatan 2</option>
-                                <option>Kegiatan 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Rekening" class="col-sm-4 col-form-label">No. Rekening</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <select class="form-control form-control-md" id="Rekening">
-                                <option>Pilih Rekening...</option>
-                                <option>Rekening 1</option>
-                                <option>Rekening 2</option>
-                                <option>Rekening 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row d-flex align-items-center">
-                        <label for="Keterangan" class="col-sm-4 col-form-label">Keterangan Tambahan</label>
-                        <div class="col-sm-1 text-right">:</div>
-                        <div class="col-sm-7">
-                            <textarea class="form-control justify-content" id="Keterangan" rows="3" placeholder="(Opsional. Isi bila ada)"></textarea>
-                        </div>
-                    </div>
-                    --}}

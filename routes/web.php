@@ -72,12 +72,22 @@ Route::prefix('SPPD')->middleware('auth')->group(function () {
     Route::patch('{id}/umum', 'SPPDController@storeumum');
     Route::patch('{id}/sewa', 'SPPDController@storesewa');
 
+    // Beban Biaya
+    Route::get('{id}/bebanbiaya', 'SPPDController@bebanbiaya');
+
+    // Keterangan
+    Route::get('{id}/keterangan', 'SPPDController@keterangan');
+    Route::patch('{id}/keterangan', 'SPPDController@storeketerangan');
+
     Route::delete('{sppd_id}/{users_id}/delete', 'SPPDController@removefollower');
 });
 
 Route::prefix('Cetak')->middleware('auth')->group(function () {
     Route::get('/SPT', 'CetakController@index')->name('CetakSPT');
     Route::get('/SPPD', 'CetakController@index')->name('CetakSPPD');
+    Route::get('/KWITANSI', 'CetakController@kwitansi')->name('CetakKWITANSI');
+
     Route::get('/SPPD/{id}', 'CetakController@SPPD');
     Route::get('/SPT/{id}', 'CetakController@SPT');
+    Route::get('/KWITANSI/{id}', 'CetakController@kwitansi');
 });
