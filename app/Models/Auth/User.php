@@ -60,4 +60,8 @@ class User extends Authenticatable
     public static function getUser(){
         return User::get()->where('id',Auth::user()->id)->first();
     }
+    public static function destroy($user)
+    {
+        $user->delete();
+    }
 }

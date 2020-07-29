@@ -288,4 +288,11 @@ class SPPDController extends Controller
         session()->flash('Success', 'Berhasil Set Keterangan');
         return back();
     }
+    public function deletesppd($id)
+    {
+        $sppd = Sppd::select('*')->where('id', $id)->first();
+        Sppd::destroy($sppd);
+        session()->flash('Success', 'Berhasil Menghapus SPPD');
+        return back();
+    }
 }

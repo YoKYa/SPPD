@@ -21,8 +21,8 @@ class CreateSppdUsersTable extends Migration
             $table->timestamp('updated_at')->useCurrent();
 
             $table->primary(['sppd_id','users_id']);
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('CASCADE');
         });
     }
 

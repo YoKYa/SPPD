@@ -18,7 +18,7 @@ class CreateKeteranganTable extends Migration
             $table->unsignedInteger('sppd_id');
             $table->text('keterangan')->nullable();
             $table->timestamps();
-            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
+            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('CASCADE');
         });
     }
 

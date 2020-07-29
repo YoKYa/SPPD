@@ -69,9 +69,42 @@
                                         <div>{{ $no1++ }}. {{ Str::limit($us->nama,20,'...') }}</div>
                                     @endforeach
                                 </td>
-                                <td> 
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPPD"class="btn btn-primary" style="font-size: 12px">SPPD</a>  
-                                    <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete"class="btn btn-danger" style="font-size: 12px">Hapus</a>
+                                <td>
+                                    <form action="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete" method="post">
+                                        <a href="{{ Route('SPPD') }}/{{ $sppd_data->id }}/SPPD" class="btn btn-primary" style="font-size: 12px">SPPD</a>  
+                                        @method('delete')
+                                        @csrf
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal{{ $sppd_data->id }}">
+                                            Hapus
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Modal{{ $sppd_data->id }}" tabindex="-1" role="dialog" aria-labelledby="Hapus{{ $sppd_data->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="Hapus{{ $sppd_data->id }}">Anda yakin untuk menghapus ?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h6>ID : {{ $sppd_data->id }} </h6>
+                                                        <h6>SPPD&nbsp;&nbsp;&nbsp;&nbsp; : {{ $sppd_data->acara }}</h6>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <form action="{{ Route('SPPD') }}/{{ $sppd_data->id }}/delete" method="post">
+                                                            @method('delete')
+                                                            @csrf   
+                                                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
                             <?php $no++;?>
                             @endforeach 
                         </tbody>

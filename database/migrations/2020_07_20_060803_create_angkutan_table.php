@@ -23,7 +23,7 @@ class CreateAngkutanTable extends Migration
             $table->enum('sewa',['Roda Enam/Bus Besar','Roda Enam/Bus Sedang','Roda Empat/Bus Mini','Roda Empat','Roda Dua'])->nullable();
             $table->timestamps();
 
-            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
+            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('CASCADE');
         });
     }
 

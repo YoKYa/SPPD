@@ -15,7 +15,7 @@ class CreateTempatTable extends Migration
             $table->enum('tempat_tujuan',['Surabaya', 'Gresik', 'Sidoarjo', 'Mojokerto', 'Jombang', 'Bojonegoro', 'Lamongan', 'Tuban', 'Madiun', 'Ngawi', 'Magetan', 'Ponorogo', 'Pacitan', 'Kediri', 'Nganjuk', 'Tulungagung', 'Blitar', 'Trenggalek', 'Malang', 'Pasuruan', 'Probolinggo', 'Lumajang', 'Bondowoso', 'Situbondo', 'Jember', 'Banyuwangi', 'Bangkalan', 'Sampang', 'Pamekasan', 'Sumenep', 'Batu','Aceh','Sumatera Utara', 'Riau', 'Kep. Riau', 'Jambi', 'Sumatera Barat', 'Sumatera Selatan', 'Lampung', 'Bengkulu', 'Bangka Belitung', 'Banten', 'Jawa Barat','D.K.I Jakarta','Jawa Tengah','D.I Jogjakarta', 'Jawa Timur','Bali','Nusa Tenggara Barat', 'Nusa Tenggara Timur', 'Kalimantan Barat', 'Kalimantan Tengah','Kalimantan Selatan','Kalimantan Timur','Kalimantan Utara','Sulawesi Utara','Gorontalo','Sulawesi Barat','Sulawesi Selatan', 'Sulawesi Tengah','Sulawesi Tenggara','Maluku','Maluku Utara','Papua','Papua Barat']);
             $table->timestamps();
 
-            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
+            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('CASCADE');
         });
     }
 

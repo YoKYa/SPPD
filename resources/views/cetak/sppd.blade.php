@@ -210,7 +210,12 @@ foreach ($sppduser as $sppd_data2) {
                 }
                 $tabelsppd->easyCell(($b-1)." ".$sppd_data->nama." / NIP. ".$sppd_data->nip,'border:'.$border.';colspan:2');
                 $tabelsppd->easyCell($sppd_data->golongan->golongan ?? '-','border:'.$border.';');
-                $tabelsppd->easyCell('Staf Pelaksana','border:'.$border.';');
+                if ($sppd_data->role == 'Admin' || $sppd_data->role == 'Staff') {
+                    $role = 'Staf Pelaksana';
+                }else{
+                    $role = $sppd_data->jabatan->jabatan;
+                }
+                $tabelsppd->easyCell($role,'border:'.$border.';');
                 $tabelsppd->printRow();
             }
         }

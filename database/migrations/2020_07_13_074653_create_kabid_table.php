@@ -21,7 +21,7 @@ class CreateKabidTable extends Migration
             $table->text('jabatan')->nullable();
             $table->timestamps();
 
-            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('NO ACTION');
+            $table->foreign('sppd_id')->references('id')->on('sppd')->onDelete('CASCADE');
         });
     }
 

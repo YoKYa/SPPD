@@ -98,4 +98,8 @@ class Sppd extends Model
         }
         return $temp;
     }
+    public static function destroy($id)
+    {
+        $id->delete();
+    }
 }

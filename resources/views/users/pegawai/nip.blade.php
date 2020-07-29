@@ -62,6 +62,13 @@
                         <input type="text" class="form-control justify-content-center" id="Jabatan" readonly placeholder="Jabatan..." name="Jabatan" value="{{ $user_pegawai->jabatan->jabatan }}">
                     </div>
                 </div>
+                <div class="form-group row d-flex align-items-center">
+                    <label for="Eselon" class="col-sm-3 col-form-label">Eselon</label>
+                    <div class="col-sm-1 text-right">:</div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control justify-content-center" id="Jabatan" readonly placeholder="Eselon..." name="Eselon" value="{{ $user_pegawai->eselon->nama_eselon }}">
+                    </div>
+                </div>
                 <hr>
                 <div class="form-group row d-flex align-items-center">
                     <label for="Role" class="col-sm-3 col-form-label">Sebagai</label>

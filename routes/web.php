@@ -88,6 +88,8 @@ Route::prefix('SPPD')->middleware('auth')->group(function () {
     Route::post('{id}/add', 'SPPDController@storeaddfollower');
     Route::get('{id}/SPPD/', 'SPPDController@showsppd');
     Route::get('{id}/edit', 'SPPDController@editsppd');
+    Route::delete('{id}/delete', 'SPPDController@deletesppd');
+    
 
     // Angkutan
     Route::get('{id}/angkutan', 'SPPDController@angkutan');

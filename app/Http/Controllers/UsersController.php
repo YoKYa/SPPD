@@ -174,7 +174,7 @@ class UsersController extends Controller
         $user_pegawai->update([
             'role' => 4
         ]);
-        $this->destroy($user_pegawai);
+        User::destroy($user_pegawai);
         session()->flash('Success', 'Berhasil Menghapus User');
         return Redirect(Route('Admin/Show'));
     }
@@ -250,8 +250,5 @@ class UsersController extends Controller
 
 
 
-    public function destroy($user)
-    {
-        $user->delete();
-    }
+    
 }
